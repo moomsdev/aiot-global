@@ -29,8 +29,6 @@ class AdminSettings {
         }
 
         $this->addDashboardContactWidget();
-        $this->changeFontAdmin();
-        $this->replaceWordpressLogo();
         $this->removeDefaultWidgets();
         $this->removeDashboardWidgets();
         $this->changeHeaderUrl();
@@ -116,45 +114,6 @@ class AdminSettings {
         });
     }
 
-    public function changeFontAdmin() {
-        add_action('admin_head', function () { ?>
-            <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-            <script>
-                WebFont.load({
-                    google: {
-                        'families': [
-                            "Montserrat:300,400,500,600,700,800,900",
-                            'Nunito:200,300,400,600,700,800,900',
-                            'Roboto:300,400,500,600,700',
-                            'Noto Sans:400,500,600,700'
-                        ]
-                    },
-                    active: function () {
-                        sessionStorage.fonts = true;
-                    }
-                });
-            </script>
-
-            <style>
-                html,
-                body {
-                    /*font: normal normal 500 14px Noto Sans;*/
-                }
-            </style>
-
-        <?php });
-    }
-
-    public function replaceWordpressLogo() {
-        add_action('wp_before_admin_bar_render', static function () {
-            ?>
-            <style type="text/css">
-
-            </style>
-            <?php
-        }, 0);
-    }
-
     public function removeDefaultWidgets() {
         add_action('widgets_init', static function () {
             unregister_widget('WP_Widget_Pages');
@@ -200,7 +159,7 @@ class AdminSettings {
 
     public function changeFooterCopyright() {
         add_filter('admin_footer_text', static function () {
-            echo '<a href="' . AUTHOR['website'] . '" target="_blank">' . AUTHOR['name'] . '</a> © 2023';
+            echo '<a href="' . AUTHOR['website'] . '" target="_blank">' . AUTHOR['name'] . '</a> © ' . date('Y') . ' - All rights reserved';
         });
     }
 
@@ -333,18 +292,8 @@ class AdminSettings {
                                 ->set_page_menu_position(2)
                                 ->add_tab(__('ADMIN', 'gaumap'), [
                                     Field::make('checkbox', 'is_maintenance', __('Turn on website maintenance mode', 'gaumap')),
-                                    // Field::make('checkbox', 'use_rank_math_breadcrumb', __('Using Rank Math breadcrumbs', 'gaumap')),
                                     Field::make('checkbox', 'disable_admin_confirm_email', __('Turn off the feature to change email admin need to verify email', 'gaumap'))->set_default_value('true'),
                                     Field::make('checkbox', 'disable_use_weak_password', __('Turn off the feature that allows the use of weak passwords', 'gaumap')),
-                                    // Field::make('checkbox', 'use_short_url', __('Sử dụng đường dẫn tắt (Loại bỏ thư mục wp-content/theme. Chú ý điều chỉnh file .htaccess như hướng dẫn)', 'gaumap')),
-                                    // Field::make('separator', 'gm_sep_1', __('Tùy chỉnh render ảnh', 'gaumap')),
-                                    // Field::make('checkbox', 'use_php_image_magick', __('Sử dụng thư viện PHP ImageMagick để xử lý ảnh', 'gaumap')),
-                                    // Field::make('radio', 'use_image_ext', __('Render chuẩn ảnh'))->set_width(50)->set_default_value('default')
-                                    //      ->set_options([
-                                    //          'default' => __('Dùng chuẩn mặc định của ảnh', 'gaumap'),
-                                    //          'fixed'   => __('Render ra chuẩn ảnh cố định', 'gaumap'),
-                                    //      ]),
-                                    // Field::make('text', 'fixed_image_ext', __('Chuẩn ảnh cố định', 'gaumap'))->set_default_value('webp'),
                                 ])
                                 ->add_tab(__('SMTP', 'gaumap'), [
                                     Field::make('checkbox', 'use_smtp', __('Sử dụng SMTP để gửi mail', 'gaumap')),
@@ -356,17 +305,6 @@ class AdminSettings {
                                     Field::make('text', 'smtp_username', __('Địa chỉ email', 'gaumap'))->set_default_value('mooms.dev@gmail.com'),
                                     Field::make('text', 'smtp_password', __('Mật khẩu', 'gaumap'))->set_default_value('utakxthdfibquxos'),
                                 ]);
-                                // ->add_tab(__('Theme info', 'gaumap'), [
-                                //     Field::make('text', 'theme_info_name', __('Name', 'gaumap'))
-                                //          ->set_attribute('readOnly', 'LA CÀ DEV'),
-                                //     Field::make('text', 'theme_info_email', __('Email', 'gaumap'))
-                                //          ->set_width(33.33)
-                                //          ->set_attribute('readOnly','mooms.dev@gmail.com')
-                                //          ->set_default_value('mooms.dev@gmail.com'),
-                                //     Field::make('text', 'theme_info_phone_number', __('Phone', 'gaumap'))->set_width(33.33)->set_attribute('readOnly', '0989 64 67 66'),
-                                //     // Field::make('text', 'theme_info_logo_url', __('Link logo', 'mooms'))->set_width(33.33)->set_attribute('readOnly', 'mooms.dev/images/moomsdev-white.png'),
-                                //     Field::make('text', 'theme_info_website', __('Website', 'mooms'))->set_width(33.33)->set_attribute('readOnly', 'https://mooms.dev/'),
-                                // ]);
         });
     }
 
@@ -507,7 +445,6 @@ class AdminSettings {
                     'duplicator',
                     'yit_plugin_panel',
                     'woocommerce-checkout-manager',
-                    //'options-general.php',
                 ])) {
                     unset($menu[$key]);
                 }
