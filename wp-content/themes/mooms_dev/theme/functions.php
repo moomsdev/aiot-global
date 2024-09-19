@@ -12,7 +12,7 @@ define('AUTHOR', [
     'name'           => 'LA CÀ DEV',
     'email'          => 'support@mooms.dev',
     'phone_number'   => '0989 64 67 66',
-    'website'        => 'https://mooms.dev/portfolio',
+    'website'        => 'https://mooms.dev/',
     'date_started'   => get_option('_theme_info_date_started'),
     'date_published' => get_option('_theme_info_date_publish'),
 ]);
@@ -189,25 +189,14 @@ add_filter('style_loader_tag', function ($html, $handle) {
 /**
  * sort_dashboard_posts
  */
-add_filter('pre_get_posts', 'sort_dashboard_posts');
-function sort_dashboard_posts($query)
-{
-    if (is_admin() && $query->is_main_query() && $query->get('post_type') != 'page') {
-        $query->set('orderby', 'date');
-        $query->set('order', 'DESC');
-    }
-}
-
-/**
- * Function just run js contact form 7 at page Contact
- */
-// function my_deregister_javascript()
+// add_filter('pre_get_posts', 'sort_dashboard_posts');
+// function sort_dashboard_posts($query)
 // {
-//     if (!is_page('Contact')) {
-//         wp_deregister_script('contact-form-7');
+//     if (is_admin() && $query->is_main_query() && $query->get('post_type') != 'page') {
+//         $query->set('orderby', 'date');
+//         $query->set('order', 'DESC');
 //     }
 // }
-// add_action('wp_print_scripts', 'my_deregister_javascript', 100);
 
 /**
  * Prevent thumbnails from being generated on upload
