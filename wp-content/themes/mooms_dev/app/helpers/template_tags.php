@@ -265,6 +265,7 @@ function theLanguageSwitcher($showName = true, $showFlag = false) {
             'show_names'    => $showName,
             'show_flags'    => $showFlag,
             'hide_if_empty' => false,
+            'hide_current'  => true,
         ]);
         echo '</ul>';
     }

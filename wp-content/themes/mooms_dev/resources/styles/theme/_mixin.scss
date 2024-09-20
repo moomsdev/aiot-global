@@ -117,3 +117,13 @@
     font-size: $font-size;
   }
 }
+
+@mixin iconify($icon, $size) {
+  height: auto;
+  width: $size;
+  background-image: url("https://api.iconify.design/#{$icon}.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}

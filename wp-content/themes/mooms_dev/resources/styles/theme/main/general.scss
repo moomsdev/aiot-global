@@ -8,12 +8,17 @@
 
 html {
   font-size: 62.5%;
+
+  &[lang="en-US"] {
+    font-family: $subFont;
+  }
 }
 
 body {
   scroll-behavior: smooth;
   font-size: clamp(1.4rem, 2.5vw, 1.6rem);
   line-height: 1.3em;
+  color: $textColor;
 }
 
 ::-webkit-scrollbar {

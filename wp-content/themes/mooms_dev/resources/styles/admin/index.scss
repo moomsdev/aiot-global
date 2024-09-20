@@ -1,3 +1,8 @@
+@import "../theme/_variables.scss";
+@import "../theme/_mixin.scss";
+@import "../theme/blocks/**.scss";
+@import "../theme/main/**.scss";
+
 .featured_image.column-featured_image {
     a {
         display: block;
