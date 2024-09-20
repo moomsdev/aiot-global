@@ -1,4 +1,5 @@
 // import "bootstrap/dist/js/bootstrap.bundle";
+import Swup from 'swup';
 import "./pages/*.js";
 import "@styles/theme";
 import "@images/favicon.ico";
@@ -6,6 +7,8 @@ import AOS from "aos/dist/aos";
 // import Swiper from 'swiper/swiper-bundle.min';
 
 jQuery(document).ready(function () {
+
+  const swup = new Swup();
 
   AOS.init({
     duration: 400,

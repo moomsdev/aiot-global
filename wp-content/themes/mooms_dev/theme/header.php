@@ -21,7 +21,7 @@
 
 <body <?php body_class(); ?>>
 	<?php app_shim_wp_body_open(); ?>
-	<div class="wrapper_mm">
+	<div class="wrapper_mm" id="swup">
 		<header id="header" class="header">
 			<div class="mm-container">
 				<div class="inner-header">

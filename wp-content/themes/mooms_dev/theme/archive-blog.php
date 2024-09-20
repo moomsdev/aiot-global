@@ -11,16 +11,26 @@
 ?>
 <div class="page-listing">
 	<div class="container">
-		<?php
-		theBreadcrumb();
-		?>
 		<h1 class="title-block"><?php thePageTitle(); ?></h1>
 
 			<div class="row gy-5">
 				<?php
 				if (have_posts()) :
 					while (have_posts()) : the_post();
-						get_template_part('template-parts/loop','post');
+						?>
+						<div class="">
+							<div class="card">
+								<figure>
+									<img src="<?php thePostThumbnailUrl();?>" alt="">
+								</figure>
+								<div class="card-body">
+									<h5 class="card-title><?php the_title(); ?></h5>
+									<p class="card-text"><?php theExcerpt(); ?></p>
+									<a href="<?php the_permalink(); ?>" class="btn btn-primary"><?php _e('Read more', 'wpe'); ?></a>
+								</div>
+							</div>
+						</div>
+						<?php
 					endwhile;
 					wp_reset_postdata();
 				endif;
