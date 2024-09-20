@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class STC_Comment_Walker extends Walker_Comment {
+class MM_Comment_Walker extends Walker_Comment {
     protected function html5_comment($comment, $depth, $args) {
         $tag = ('div' === $args['style']) ? 'div' : 'li'; ?>
         <<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" <?php comment_class($this->has_children ? 'parent media' : 'media'); ?>>

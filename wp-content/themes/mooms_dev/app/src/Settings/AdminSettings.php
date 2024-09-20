@@ -59,7 +59,7 @@ class AdminSettings {
             ]);
         });
 
-        add_action('wp_ajax_stc_get_attachment_url_thumbnail', static function () {
+        add_action('wp_ajax_mm_get_attachment_url_thumbnail', static function () {
             $url          = '';
             $attachmentID = isset($_REQUEST['attachmentID']) ? $_REQUEST['attachmentID'] : '';
             if ($attachmentID) {

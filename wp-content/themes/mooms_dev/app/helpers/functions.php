@@ -48,6 +48,25 @@ function updateUserMeta($idUser, $key, $value)
     return update_user_meta($idUser, $key, $value) ?: add_user_meta($idUser, $key, $value);
 }
 
+
+function updateAttachmentSize($attachment_id, $fileName, $width, $height, $type)
+{
+    $metadata = wp_get_attachment_metadata($attachment_id);
+    if (is_array($metadata) && array_key_exists('sizes', $metadata)) {
+        $size     = $metadata['sizes'];
+        $sizeName = $width . 'x' . $height;
+        if (!array_key_exists($sizeName, $size)) {
+            $metadata['sizes'][$sizeName] = [
+                'file'      => $fileName,
+                'width'     => $width,
+                'height'    => $height,
+                'mime-type' => $type,
+            ];
+        }
+        wp_update_attachment_metadata($attachment_id, $metadata);
+    }
+}
+
 /**
  * Resize image using Intervention Image
  */
@@ -185,10 +204,56 @@ function formatHumanTime($time)
  *
  * @return false|string
  */
+// function getImageUrlById($attachment_id, $width = null, $height = null)
+// {
+//     if ($width === null && $height === null) {
+//     	return wp_get_attachment_image_url($attachment_id, 'full');
+//     }
+
+//     $width               = $width ? absint($width) : 0;
+//     $height              = $height ? absint($height) : 0;
+//     $upload_dir          = wp_upload_dir();
+//     $attachment_realpath = crb_normalize_path(get_attached_file($attachment_id));
+
+//     // Neu khong tim thay anh thi return lai placeholder de tranh bi loi
+//     if (empty($attachment_realpath)) {
+//         return "https://via.placeholder.com/{$width}x{$height}";
+//     }
+
+//     $filename  = basename($attachment_realpath);
+//     $fileParts = explode('.', $filename);
+
+//     // Kiem tra neu la nhung file anh dac biet nhu gif, svg thi khong xu ly
+//     $fileExt = $fileParts[count($fileParts) - 1];
+//     if (in_array($fileExt, ['gif', 'svg'])) {
+//         return wp_get_attachment_image_url($attachment_id, 'full');
+//     }
+
+//     // Kiem tra neu khach hang dang chon default hoac neu thiet bi su dung la iPhone hoac trinh duyet la Safari
+//     // $agent = new Agent();
+//     // if (get_option('_use_image_ext') === 'default' || $agent->is('iPhone')) {
+//     //     $extension = explode('.', $filename)[1];
+//     // } else {
+//     //     $extension = get_option('_fixed_image_ext');
+//     // }
+
+//     $filename = preg_replace('/(\.[^\.]+)$/', '-' . $width . 'x' . $height, $filename) . '.' . $extension;
+//     $filepath = crb_normalize_path($upload_dir['basedir'] . '/' . $filename);
+//     $url      = trailingslashit($upload_dir['baseurl']) . $filename;
+
+//     // Kiểm tra xem có ảnh đã resize hay chưa, nếu chưa có thì thực hiện resize
+//     if (!file_exists($filepath)) {
+//         resizeImage($attachment_realpath, $filepath, $width, $height, $extension);
+//         // Bổ sung vào metadata để sau này khi user xóa ảnh thì xóa luôn cả ảnh resize
+//         updateAttachmentSize($attachment_id, $filename, $width, $height, $extension);
+//     }
+
+//     return $url;
+// }
 function getImageUrlById($attachment_id, $width = null, $height = null)
 {
     if ($width === null && $height === null) {
-    	return wp_get_attachment_image_url($attachment_id, 'full');
+        return wp_get_attachment_image_url($attachment_id, 'full');
     }
 
     $width               = $width ? absint($width) : 0;
@@ -196,41 +261,29 @@ function getImageUrlById($attachment_id, $width = null, $height = null)
     $upload_dir          = wp_upload_dir();
     $attachment_realpath = crb_normalize_path(get_attached_file($attachment_id));
 
-    // Neu khong tim thay anh thi return lai placeholder de tranh bi loi
     if (empty($attachment_realpath)) {
         return "https://via.placeholder.com/{$width}x{$height}";
     }
 
     $filename  = basename($attachment_realpath);
     $fileParts = explode('.', $filename);
-
-    // Kiem tra neu la nhung file anh dac biet nhu gif, svg thi khong xu ly
     $fileExt = $fileParts[count($fileParts) - 1];
     if (in_array($fileExt, ['gif', 'svg'])) {
         return wp_get_attachment_image_url($attachment_id, 'full');
     }
 
-    // Kiem tra neu khach hang dang chon default hoac neu thiet bi su dung la iPhone hoac trinh duyet la Safari
-    // $agent = new Agent();
-    // if (get_option('_use_image_ext') === 'default' || $agent->is('iPhone')) {
-    //     $extension = explode('.', $filename)[1];
-    // } else {
-    //     $extension = get_option('_fixed_image_ext');
-    // }
-
-    $filename = preg_replace('/(\.[^\.]+)$/', '-' . $width . 'x' . $height, $filename) . '.' . $extension;
+    $filename = preg_replace('/(\.[^\.]+)$/', '-' . $width . 'x' . $height, $filename);
     $filepath = crb_normalize_path($upload_dir['basedir'] . '/' . $filename);
     $url      = trailingslashit($upload_dir['baseurl']) . $filename;
 
-    // Kiểm tra xem có ảnh đã resize hay chưa, nếu chưa có thì thực hiện resize
+    // If the resized image does not exist, fall back to the full image
     if (!file_exists($filepath)) {
-        resizeImage($attachment_realpath, $filepath, $width, $height, $extension);
-        // Bổ sung vào metadata để sau này khi user xóa ảnh thì xóa luôn cả ảnh resize
-        updateAttachmentSize($attachment_id, $filename, $width, $height, $extension);
+        return wp_get_attachment_image_url($attachment_id, 'full');
     }
 
     return $url;
 }
+
 
 /**
  * Resize image by image's url without add_image_size

@@ -11,7 +11,8 @@
 @import "./_variables.scss";
 @import "./_sprite.scss";
 @import "./_mixin.scss";
-@import "./main/*.scss";
+@import "./main/**.scss";
+@import "./blocks/**.scss";
 @import "./_generic*.scss";
 @import "~@csstools/normalize.css";
 @import "~aos/dist/aos.css";

@@ -20,6 +20,8 @@ const config = {
   open: 'local',
   files: [
     utils.themeRootPath('./theme/**/*.php'),
+    utils.themeRootPath('./resources/styles/**/*.scss'),
+    utils.themeRootPath('./resources/scripts/**/*.js'),
   ],
   snippetOptions: {
     rule: {
@@ -32,4 +34,5 @@ const config = {
 
 module.exports = new BrowserSyncPlugin(config, {
   injectCss: true,
+  reload: true
 });

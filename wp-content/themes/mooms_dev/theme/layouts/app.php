@@ -16,9 +16,9 @@ if (empty($_GET['_pjax'])) {
 }
 ?>
 
-    <div id="main_content">
+    <main id="main_content">
         <?php WPEmerge\layout_content(); ?>
-    </div>
+    </main>
 
 <?php if (empty($_GET['_pjax'])) {
     WPEmerge\render('footer');

@@ -26,14 +26,14 @@ let mediaGridObserver = new MutationObserver(function (mutations) {
 
                             let handler = function (element) {
                                 jQuery.ajax({
-                                    url     : '/wp-admin/admin-ajax.php',
-                                    type    : "POST",
+                                    url: '/wp-admin/admin-ajax.php',
+                                    type: "POST",
                                     dataType: 'html',
-                                    data    : {
-                                        'action'      : 'stc_get_attachment_url_thumbnail',
+                                    data: {
+                                        'action': 'mm_get_attachment_url_thumbnail',
                                         'attachmentID': element.attr('data-id')
                                     },
-                                    success : function (data) {
+                                    success: function (data) {
                                         if (data) {
                                             element.find('img').attr('src', data);
                                             element.find('.filename').text('SVG Image');
@@ -72,7 +72,7 @@ let attachmentPreviewObserver = new MutationObserver(function (mutations) {
 jQuery(document).ready(function () {
     mediaGridObserver.observe(document.body, {
         childList: true,
-        subtree  : true
+        subtree: true
     });
 
     // attachmentPreviewObserver.observe(document.body, {

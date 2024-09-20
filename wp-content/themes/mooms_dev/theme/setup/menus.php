@@ -18,7 +18,6 @@ use Carbon_Fields\Field;
 register_nav_menus(
 	[
 		'main-menu' => __( 'Main Menu', 'app' ),
-        // 'product-menu' => __( 'Products Menu', 'app' ),
         // 'footer-menu' => __( 'Footer Menu', 'app' ),
 	]
 );

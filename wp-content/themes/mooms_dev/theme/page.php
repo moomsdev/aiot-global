@@ -9,14 +9,4 @@
  * @package WPEmergeTheme
  */
 ?>
-<div class="single-content">
-	<div class="banner">
-		<figure class="responsive-media ratio-16-5">
-			<img src="<?php thePostThumbnailUrl(); ?>" alt="<?= get_the_title(); ?>">
-		</figure>
-	</div>
-
-    <div class="container">
-        <?php the_content(); ?>
-    </div>
-</div>
+<?php the_content(); ?>

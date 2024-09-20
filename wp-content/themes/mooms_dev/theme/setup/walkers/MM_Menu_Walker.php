@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
  *
  * @since   0.1
  */
-class STC_Menu_Walker extends Walker_Nav_Menu
+class MM_Menu_Walker extends Walker_Nav_Menu
 {
 
     /**

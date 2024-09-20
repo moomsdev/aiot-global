@@ -2,9 +2,9 @@
 
 use Overtrue\Socialite\SocialiteManager;
 
-add_action('wp_ajax_nopriv_user_login', 'stc_user_login');
-add_action('wp_ajax_user_login', 'stc_user_login');
-function stc_user_login()
+add_action('wp_ajax_nopriv_user_login', 'mm_user_login');
+add_action('wp_ajax_user_login', 'mm_user_login');
+function mm_user_login()
 {
     if (empty($_POST)) {
         return '';
@@ -32,9 +32,9 @@ function stc_user_login()
     return '';
 }
 
-add_action('wp_ajax_nopriv_user_register', 'stc_user_register');
-add_action('wp_ajax_user_register', 'stc_user_register');
-function stc_user_register()
+add_action('wp_ajax_nopriv_user_register', 'mm_user_register');
+add_action('wp_ajax_user_register', 'mm_user_register');
+function mm_user_register()
 {
     if (empty($_POST)) {
         return '';
@@ -98,9 +98,9 @@ function stc_user_register()
     return true;
 }
 
-add_action('wp_ajax_nopriv_user_reset_password', 'stc_user_reset_password');
-add_action('wp_ajax_user_reset_password', 'stc_user_reset_password');
-function stc_user_reset_password()
+add_action('wp_ajax_nopriv_user_reset_password', 'mm_user_reset_password');
+add_action('wp_ajax_user_reset_password', 'mm_user_reset_password');
+function mm_user_reset_password()
 {
     wp_send_json_success(true);
 }

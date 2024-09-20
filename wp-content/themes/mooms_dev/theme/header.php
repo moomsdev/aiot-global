@@ -21,32 +21,38 @@
 	<?php app_shim_wp_body_open(); ?>
 	<div class="wrapper_mm">
 		<header id="header" class="header">
-			<div class="container">
-				<div class="flex-header d-flex">
-					<div id="logo" class="logo d-flex align-items-center justify-content-start">
-						<a href="<?php bloginfo('url'); ?>" title="AMZ"><img src="<?php theOptionImage('logo'); ?>" alt="<?php bloginfo('url'); ?>"></a>
+			<div class="mm-container">
+				<div class="inner-header">
+					<div id="logo" class="logo">
+						<a href="<?php bloginfo('url');?>" title="<?php bloginfo('name');?>">
+							<img src="<?php theOptionImage('logo');?>" width="180" height="53" alt="<?php bloginfo('name');?>">
+						</a>
 					</div>
-					<div class="content-menu d-flex align-items-center justify-content-end">
-						<div class="nav-wrap">
-							<div class="btn-menu"><span></span></div>
-							<nav id="mainnav" class="mainnav">
-								<ul class="menu">
-									<li>
-										<a href="#services">IT Services</a>
-									</li>
-									<li>
-										<a href="#testimonial">Testimonial</a>
-									</li>
-									<li>
-										<a href="#team">Teams</a>
-									</li>
-									<li>
-										<a href="#contact">Contact</a>
-									</li>
-								</ul>
-							</nav>
+					<div class="content-menu">
+						<?php
+						wp_nav_menu([
+							'theme_location' => 'main-menu',
+							'menu_class'     => 'nav_menu',
+							'container'      => 'nav',
+							'container_class'=> 'header__nav-container',
+							'walker'         => new MM_Menu_Walker(),
+						]);
+						?>
+						<div class="language">
+							<div class="global">
+								<?php theLanguageSwitcher() ?>
+							</div>
+							<div class="current-language">
+								<?php 
+								$current_language_name = pll_current_language('name');
+								echo $current_language_name;
+								?>
+							</div>
+						</div>
+						<div class="contact">
+							<a href="#" target="_blank"><?= _e('Contact','gaumap') ?></a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</header><!-- header -->
+		</header>
