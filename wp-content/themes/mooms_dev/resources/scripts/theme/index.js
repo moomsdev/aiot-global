@@ -1,5 +1,6 @@
-// import "bootstrap/dist/js/bootstrap.bundle";
 import Swup from 'swup';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./pages/*.js";
 import "@styles/theme";
 import "@images/favicon.ico";
@@ -7,19 +8,44 @@ import AOS from "aos/dist/aos";
 // import Swiper from 'swiper/swiper-bundle.min';
 
 jQuery(document).ready(function () {
-
   const swup = new Swup();
+  initAnimations();
+  setupBackToTopButton();
+  setupMenuFixedBehavior();
+  setupMobileMenuHandling();
+});
 
+/**
+ * Khởi tạo hoạt ảnh GSAP và AOS
+ */
+function initAnimations() {
+  // GSAP
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from(".welcome-aiot", {
+    x: '50%',
+    duration: 2,
+    opacity: 0.3,
+    scrollTrigger: {
+      trigger: ".welcome-aiot",
+      start: "top 80%",
+      end: "bottom 20%",
+      scrub: true,
+    }
+  });
+
+  // AOS
   AOS.init({
     duration: 400,
   });
+}
 
-  /**
-   * back to top
-   */
-  var btn = $('#button');
+/**
+ * Back to top button
+ */
+function setupBackToTopButton() {
+  const btn = $('#button');
 
-  $(window).scroll(function () {
+  $(window).on('scroll', function () {
     if ($(window).scrollTop() > 600) {
       btn.addClass('show');
     } else {
@@ -29,74 +55,80 @@ jQuery(document).ready(function () {
 
   btn.on('click', function (e) {
     e.preventDefault();
-    $('html, body').animate({ scrollTop: 0 }, '300');
+    $('html, body').animate({ scrollTop: 0 }, 300);
   });
+}
 
-  /**
-   * Menu fixed
-   */
-  let navbar = document.querySelector('#header')
+/**
+ * Menu fixed behavior
+ */
+function setupMenuFixedBehavior() {
+  const navbar = document.querySelector('#header');
 
-  /**
-   * Scroll menu
-   */
-  window.addEventListener('scroll', () => {
+  $(window).on('scroll', () => {
     const isMobile = window.innerWidth <= 768;
+    const scrollThreshold = isMobile ? 90 : 130.8;
 
-    if (isMobile) {
-      if (window.scrollY > 90) {
-        navbar.classList.add('fixed');
-      } else {
-        navbar.classList.remove('fixed');
-      }
+    if (window.scrollY > scrollThreshold) {
+      navbar.classList.add('fixed');
     } else {
-      if (window.scrollY > 130.8) {
-        navbar.classList.add('fixed');
-      } else {
-        navbar.classList.remove('fixed');
-      }
+      navbar.classList.remove('fixed');
     }
   });
+}
 
-  // menu mobile
-  var menuType = 'desktop';
+/**
+ * Menu mobile handling
+ */
+function setupMobileMenuHandling() {
+  let menuType = 'desktop';
 
   $(window).on('load resize', function () {
-    var currMenuType = 'desktop';
-
-    if (matchMedia('only screen and (max-width: 991px)').matches) {
-      currMenuType = 'mobile';
-    }
+    const currMenuType = matchMedia('only screen and (max-width: 991px)').matches ? 'mobile' : 'desktop';
 
     if (currMenuType !== menuType) {
       menuType = currMenuType;
-
       if (currMenuType === 'mobile') {
-        var $mobileMenu = $('#mainnav').attr('id', 'mainnav-mobi').hide();
-        var hasChildMenu = $('#mainnav-mobi').find('li:has(ul)');
-
-        $('#header .container').after($mobileMenu);
-        hasChildMenu.children('ul').hide();
-        hasChildMenu.children('a').after('<span class="btn-submenu"></span>');
-        $('.btn-menu').removeClass('active');
+        enableMobileMenu();
       } else {
-        var $desktopMenu = $('#mainnav-mobi').attr('id', 'mainnav').removeAttr('style');
-
-        $desktopMenu.find('.submenu').removeAttr('style');
-        $('#header').find('.nav-wrap').append($desktopMenu);
-        $('.btn-submenu').remove();
+        enableDesktopMenu();
       }
     }
   });
 
+  // Toggle mobile menu
   $('.btn-menu').on('click', function () {
     $('#mainnav-mobi').slideToggle(300);
     $(this).toggleClass('active');
   });
 
+  // Handle submenu in mobile menu
   $(document).on('click', '#mainnav-mobi li .btn-submenu', function (e) {
     $(this).toggleClass('active').next('ul').slideToggle(300);
-    e.stopImmediatePropagation()
+    e.stopImmediatePropagation();
   });
+}
 
-});
+/**
+ * Enable mobile menu
+ */
+function enableMobileMenu() {
+  const $mobileMenu = $('#mainnav').attr('id', 'mainnav-mobi').hide();
+  const hasChildMenu = $('#mainnav-mobi').find('li:has(ul)');
+
+  $('#header .container').after($mobileMenu);
+  hasChildMenu.children('ul').hide();
+  hasChildMenu.children('a').after('<span class="btn-submenu"></span>');
+  $('.btn-menu').removeClass('active');
+}
+
+/**
+ * Enable desktop menu
+ */
+function enableDesktopMenu() {
+  const $desktopMenu = $('#mainnav-mobi').attr('id', 'mainnav').removeAttr('style');
+
+  $desktopMenu.find('.submenu').removeAttr('style');
+  $('#header').find('.nav-wrap').append($desktopMenu);
+  $('.btn-submenu').remove();
+}
