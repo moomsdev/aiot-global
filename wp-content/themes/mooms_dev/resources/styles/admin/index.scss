@@ -2,6 +2,7 @@
 @import "../theme/_mixin.scss";
 @import "../theme/blocks/**.scss";
 @import "../theme/main/**.scss";
+@import "../shared/introjs.css";
 
 .featured_image.column-featured_image {
     a {
@@ -12,4 +13,8 @@
         height: auto;
         max-width: 10rem;
     }
+}
+
+.banner-block {
+    height: auto !important;
 }

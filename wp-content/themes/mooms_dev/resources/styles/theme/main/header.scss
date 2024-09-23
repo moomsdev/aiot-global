@@ -41,6 +41,11 @@ header {
                     color: $primaryColor;
                 }
             }
+            &.current-menu-item {
+                a {
+                    color: $primaryColor;
+                }
+            }
         }
     }
 
