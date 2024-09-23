@@ -2,20 +2,23 @@
 use Carbon_Fields\Block;
 use Carbon_Fields\Field;
 
-    Block::make(__('Banner Block', 'gaumap'))
+    Block::make(__('Media Block', 'gaumap'))
     ->add_fields([
-        Field::make('select', 'type_banner', __('Type banner', 'gaumap')) ->set_width(20)
+        Field::make('separator', 'media_spt', __('Media block', 'gaumap')),
+ 
+        Field::make('select', 'type_media', __('Type media', 'gaumap'))->set_width(20)
+            ->set_attribute('data-step', '1')
             ->set_default_value('image')
-            ->set_options([
-                'image' => 'Image',
-                'video' => 'Video',
+            ->add_options([
+                'image' => __('Image'),
+                'video' => __('Video'),
             ]),
 
         //Type image
-        Field::make('image', 'image_banner', __('Image banner', 'gaumap')) ->set_width(80)
+        Field::make('image', 'image_media', __('Image', 'gaumap')) ->set_width(80)
             ->set_conditional_logic([
                 [
-                    'field' => 'type_banner',
+                    'field' => 'type_media',
                     'value' => 'image',
                     'compare' => '=',
                 ],
@@ -30,18 +33,18 @@ use Carbon_Fields\Field;
             ->set_default_value('embed')
             ->set_conditional_logic([
                 [
-                    'field' => 'type_banner',
+                    'field' => 'type_media',
                     'value' => 'video',
                     'compare' => '=',
                 ],
             ]),
 
         //video upload
-        Field::make('file', 'video_upload', __('Video banner', 'gaumap')) ->set_width(60)
+        Field::make('file', 'video_upload', __('Video upload', 'gaumap')) ->set_width(60)
         ->set_conditional_logic([
             'relation' => 'AND',
             [
-                'field' => 'type_banner',
+                'field' => 'type_media',
                 'value' => 'video',
                 'compare' => '=',
             ],
@@ -52,11 +55,11 @@ use Carbon_Fields\Field;
             ],
         ]),
         //Video embed
-        Field::make('text', 'video_embed', __('Video banner', 'gaumap')) ->set_width(60)
+        Field::make('text', 'video_embed', __('Video from URL', 'gaumap')) ->set_width(60)
         ->set_conditional_logic([
             'relation' => 'AND',
             [
-                'field' => 'type_banner',
+                'field' => 'type_media',
                 'value' => 'video',
                 'compare' => '=',
             ],
@@ -71,13 +74,15 @@ use Carbon_Fields\Field;
     ?>
         <section class="banner-block">
             <?php
-            $types = $fields['type_banner'];
-            $img = $fields['image_banner'];
-            $video = $fields['video_banner'];
+            $types = $fields['type_media'];
+            $img = $fields['image_media'];
+            $type_video = $fields['type_video'];
+            $videoUpload = $fields['video_upload'];
+            $videoEmbed = $fields['video_embed'];
 
             if ( $types == 'image' && $img ) :
             ?>
-                <figure>
+                <figure class="media">
                     <img
                         src="<?= getImageUrlById($img, 1920, 1080); ?>" 
                         srcset="<?= getImageUrlById($img, 400, 300); ?> 400w,
@@ -90,11 +95,11 @@ use Carbon_Fields\Field;
                     >
                 </figure>
             <?php
-            elseif ( $types == 'video' && $video ) :
+            elseif ( $types == 'video' && $type_video == 'upload' ) :
             ?>
                 <figure>
                 <video
-                    src="<?= $video; ?>"
+                    src="<?= $videoUpload; ?>"
                     autoplay
                     loop
                     muted
@@ -106,6 +111,23 @@ use Carbon_Fields\Field;
             <?php
             endif;
             ?>
+        </section>
+
+        <section class="welcome">
+            <div class="mm-container-fluid">
+                <div class="scroll-circle">
+                    <svg viewBox="0 0 200 200">
+                        <path id="circlePath" d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0" fill="none"/>
+                        <text>
+                            <textPath href="#circlePath" startOffset="0">
+                                Scroll down - Scroll down - Scroll down - Scroll down -
+                            </textPath>
+                        </text>
+                    </svg>
+                    <div class="arrow"></div>
+                </div>
+                <div class="welcome-aiot">Welcome to AIOT-global</div>
+            </div> 
         </section>
         <?php
     });
