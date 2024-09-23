@@ -24,7 +24,7 @@
 									<img src="<?php thePostThumbnailUrl();?>" alt="">
 								</figure>
 								<div class="card-body">
-									<h5 class="card-title><?php the_title(); ?></h5>
+									<h5 class="card-title"><?php the_title(); ?></h5>
 									<p class="card-text"><?php theExcerpt(); ?></p>
 									<a href="<?php the_permalink(); ?>" class="btn btn-primary"><?php _e('Read more', 'wpe'); ?></a>
 								</div>
