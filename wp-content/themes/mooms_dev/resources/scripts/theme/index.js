@@ -1,20 +1,30 @@
+import "@images/favicon.ico";
+import "@styles/theme";
+import "airbnb-browser-shims";
+import "./pages/*.js";
 import Swup from 'swup';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./pages/*.js";
-import "@styles/theme";
-import "@images/favicon.ico";
 import AOS from "aos/dist/aos";
-// import Swiper from 'swiper/swiper-bundle.min';
+import Swiper from 'swiper/swiper-bundle.min';
 
 jQuery(document).ready(function () {
   const swup = new Swup();
+  initializePageFeatures();
+
+  swup.hooks.on('content:replace', () => {
+    initializePageFeatures();
+  });
+
+});
+
+function initializePageFeatures() {
   initAnimations();
+  // setupSwiperSlider();
   setupBackToTopButton();
   setupMenuFixedBehavior();
   setupMobileMenuHandling();
-});
-
+}
 /**
  * Khởi tạo hoạt ảnh GSAP và AOS
  */
@@ -37,6 +47,36 @@ function initAnimations() {
   AOS.init({
     duration: 400,
   });
+}
+/**
+ * Swiper slider
+ */
+function setupSwiperSlider() {
+
+  // const swiper_slider = new Swiper('.intro-slider', {
+  //   loop: true,
+  //   slidesPerView: 3,
+  //   spaceBetween: 20,
+  //   speed: 5000,
+  //   autoplay: {
+  //     delay: 2500,
+  //     disableOnInteraction: false,
+  //   },
+  //   freeMode: true,
+  //   freeModeMomentum: false,
+  // });
+  // setTimeout(() => {
+  //   new Swiper('.intro-slider', {
+  //     spaceBetween: 30,
+  //     centeredSlides: true,
+  //     effect: 'fade',
+  //     speed: 1500,
+  //     autoplay: {
+  //       delay: 5000,
+  //       disableOnInteraction: false,
+  //     },
+  //   });
+  // }, 500);
 }
 
 /**

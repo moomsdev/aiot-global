@@ -4,6 +4,12 @@
 @import "../theme/main/**.scss";
 @import "../shared/introjs.css";
 
+html :where(.wp-block) {
+    max-width: 120rem;
+    position: relative;
+    overflow: hidden;
+}
+
 .featured_image.column-featured_image {
     a {
         display: block;

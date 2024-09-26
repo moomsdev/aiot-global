@@ -8,7 +8,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 /**
  * The internal dependencies.
  */
@@ -35,13 +34,6 @@ const babelLoader = {
         ],
     },
 };
-
-/**
- * Setup extract text plugin.
- */
-const extractSass = new ExtractTextPlugin({
-    filename: 'styles/[name].css',
-});
 
 /**
  * Setup webpack plugins.

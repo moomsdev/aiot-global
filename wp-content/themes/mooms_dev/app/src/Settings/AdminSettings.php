@@ -24,7 +24,7 @@ class AdminSettings {
             $this->checkIsMaintenance();
             $this->disablePluginPage();
             $this->disableOptionsReadPage();
-            $this->disableAllUpdate();
+            // $this->disableAllUpdate();
             $this->removeUnnecessaryMenus();
         }
 

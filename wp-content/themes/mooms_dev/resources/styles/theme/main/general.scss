@@ -153,7 +153,8 @@ p:empty {
 }
 
 .full-width {
-  width: 100vw;
+  width: calc(100vw - 3px);
+  // width: 100vw;
   position: relative;
   left: 50%;
   right: 50%;

@@ -435,3 +435,51 @@ add_action('wp_default_scripts', function($scripts) {
         }
     }
 });
+
+// Get video
+
+function getYoutubeEmbedUrl($url)
+{
+    $youtube_id = '';
+    if (preg_match('/(youtube\.com.*(\?v=|\/embed\/|\/v\/|\/.+\/|youtu\.be\/|\/v\/)|\/shorts\/)([a-zA-Z0-9_-]{11})/', $url, $matches)) {
+        $youtube_id = $matches[3];
+    }
+    
+    if (!empty($youtube_id)) {
+        return 'https://www.youtube.com/embed/' . $youtube_id . '?modestbranding=1&showinfo=0&controls=1&frameborder=0&allow=accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&allowfullscreen';
+    }
+
+    return '';
+}
+
+
+function getVideoUrl($video_link)
+{
+    $video_html = '';
+
+    if (!empty($video_link)) {
+        // Handle YouTube URLs
+        if (strpos($video_link, 'youtube.com') !== false || strpos($video_link, 'youtu.be') !== false) {
+            $youtube_embed_url = getYoutubeEmbedUrl($video_link);
+            if (!empty($youtube_embed_url)) {
+                $video_html = '<div class="video-embed"><iframe title="YouTube video" src="' . $youtube_embed_url . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+            }
+        }
+        // Handle Vimeo URLs
+        elseif (strpos($video_link, 'vimeo.com') !== false) {
+            $video_ID = substr(parse_url($video_link, PHP_URL_PATH), 1); // Extract the video ID from the URL
+            $vimeo_api_url = "https://vimeo.com/api/v2/video/{$video_ID}.json";
+
+            $hash = @file_get_contents($vimeo_api_url);
+            if ($hash) {
+                $hash_data = json_decode($hash);
+                if (isset($hash_data[0])) {
+                    $title = $hash_data[0]->title;
+                    $video_html = '<div class="video-embed"><iframe title="Video: ' . $title . '" src="https://player.vimeo.com/video/' . $video_ID . '" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
+                }
+            }
+        }
+    }
+
+    return $video_html;
+}
