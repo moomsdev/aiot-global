@@ -9,4 +9,8 @@
  * @package WPEmergeTheme
  */
 ?>
-<?php the_content(); ?>
+<div class="page" data-aos="fade-in" data-aos-duration="2000">
+	<div class="mm-container">
+		<?php the_content(); ?>
+	</div>
+</div>
