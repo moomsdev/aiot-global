@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MOOMS.DEV\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-18 16:38+0000\n"
+"POT-Creation-Date: 2024-09-25 09:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -21,6 +21,30 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
+#: setup/blocks/intro-block.php:11
+msgid "BLOCK INTRO"
+msgstr ""
+
+#: setup/blocks/intro-block.php:9
+msgid "Block Intro"
+msgstr ""
+
+#: setup/blocks/media-block.php:7
+msgid "BLOCK MEDIA"
+msgstr ""
+
+#: setup/blocks/media-block.php:5
+msgid "Block Media"
+msgstr ""
+
+#: setup/blocks/service-block.php:11
+msgid "BLOCK SERVICE"
+msgstr ""
+
+#: setup/blocks/service-block.php:9
+msgid "Block Service"
+msgstr ""
+
 #: setup/theme-options.php:18
 msgid "Branding | Thương hiệu"
 msgstr ""
@@ -29,16 +53,12 @@ msgstr ""
 msgid "Chúc mừng bạn đã đăng nhập thành công"
 msgstr ""
 
+#: header.php:62
+msgid "Contact"
+msgstr ""
+
 #: setup/theme-options.php:22
 msgid "Contact | Liên hệ"
-msgstr ""
-
-#: setup/blocks/content-block.php:5
-msgid "Content Block"
-msgstr ""
-
-#: setup/blocks/content-block.php:7
-msgid "Content blocks | Khối nội dung:"
 msgstr ""
 
 #: setup/theme-options.php:20
@@ -49,34 +69,8 @@ msgstr ""
 msgid "Default Sidebar"
 msgstr ""
 
-#: setup/blocks/content-block.php:11
-msgid "Desc | Mô tả"
-msgstr ""
-
-#: template-parts/block-contact.php:26
-msgid "Get in touch We’ll help your business"
-msgstr ""
-
-#: setup/theme-options.php:81
-msgid "Giới thiệu về nhần viên"
-msgstr ""
-
-#: setup/theme-options.php:79 setup/theme-options.php:100
-#: setup/theme-options.php:118
-msgid "Hiển thị block ?"
-msgstr ""
-
-#: setup/theme-options.php:82
-msgid "Hình nền"
-msgstr ""
-
-#: setup/theme-options.php:62 setup/theme-options.php:110
-#: setup/theme-options.php:128
-msgid "Hình ảnh"
-msgstr ""
-
-#: setup/theme-options.php:120
-msgid "Khách hàng của VIETHOMECARE"
+#: setup/blocks/intro-block.php:53 setup/blocks/media-block.php:18
+msgid "Image"
 msgstr ""
 
 #: search.php:36
@@ -95,61 +89,48 @@ msgstr ""
 msgid "mooms_dev/theme"
 msgstr ""
 
-#: setup/theme-options.php:106 setup/theme-options.php:124
-msgid "Mô tả ngắn"
-msgstr ""
-
-#: setup/theme-options.php:50
-msgid "NHẬP THÔNG TIN CÁC BLOCKS"
-msgstr ""
-
-#: setup/theme-options.php:86
-msgid "Nội dung"
+#: setup/blocks/intro-block.php:16 setup/blocks/service-block.php:16
+msgid "REVERSED"
 msgstr ""
 
 #: setup/theme-options.php:42
 msgid "Scripts"
 msgstr ""
 
-#: setup/theme-options.php:58
-msgid "Slider block"
-msgstr ""
-
-#: setup/theme-options.php:102
-msgid "Slider Báo chí"
+#: setup/blocks/intro-block.php:67
+msgid "Select slider image (Ctrl + image to select multiple images))"
 msgstr ""
 
 #: setup/theme-options.php:16
 msgid "Theme Options"
 msgstr ""
 
-#: setup/theme-options.php:59 setup/theme-options.php:107
-msgid "Thêm hình ảnh:"
-msgstr ""
-
-#: setup/theme-options.php:125
-msgid "Thêm khách hàng:"
-msgstr ""
-
-#: setup/blocks/content-block.php:10
-msgid "Title | Tiêu đề"
-msgstr ""
-
-#: setup/theme-options.php:103 setup/theme-options.php:121
-msgid "Tiêu đề"
-msgstr ""
-
 #: setup/users/auth.php:14 setup/users/auth.php:59
 msgid "Token mismatch!"
+msgstr ""
+
+#: setup/blocks/media-block.php:9
+msgid "Type media"
+msgstr ""
+
+#: setup/blocks/media-block.php:27
+msgid "Type video"
 msgstr ""
 
 #: setup/users/auth.php:18
 msgid "Tài khoản hoặc mật khẩu không đúng, vui lòng kiểm tra lại"
 msgstr ""
 
-#: setup/theme-options.php:63 setup/theme-options.php:111
-#: setup/theme-options.php:129
-msgid "Tên"
+#: setup/blocks/media-block.php:50
+msgid "Video from URL"
+msgstr ""
+
+#: setup/blocks/media-block.php:41
+msgid "Video upload"
+msgstr ""
+
+#: setup/blocks/intro-block.php:129 setup/blocks/service-block.php:102
+msgid "View More"
 msgstr ""
 
 #: setup/users/auth.php:79
@@ -172,11 +153,10 @@ msgstr ""
 msgid "Vui lòng nhập tên"
 msgstr ""
 
-#: setup/users/auth.php:31 setup/users/auth.php:189
-msgid "Xin chào, "
+#: setup/blocks/media-block.php:59
+msgid "Welcome text"
 msgstr ""
 
-#: setup/theme-options.php:64 setup/theme-options.php:112
-#: setup/theme-options.php:130
-msgid "Đường dẫn (nếu có)"
+#: setup/users/auth.php:31 setup/users/auth.php:189
+msgid "Xin chào, "
 msgstr ""
