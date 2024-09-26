@@ -1,31 +1,24 @@
-.banner-block {
+.block-media {
     padding: 0;
-    // min-height: 80vh; // Chiều cao tối thiểu của banner là 100% chiều cao màn hình
-    display: flex; // Đảm bảo hình ảnh hoặc video chiếm đủ chiều cao
+    display: flex;
     justify-content: center;
     align-items: center;
-
-    // figure {
-    //     width: 100%;
-    //     height: 100%;
-    //     margin: 0;
-
-    //     img,
-    //     video {
-    //         width: 100%;
-    //         height: 100%;
-    //         object-fit: cover; // Đảm bảo hình ảnh/video lấp đầy không gian mà không bị méo
-    //     }
-    // }
+    position: relative;
+    overflow: hidden;
 }
-.welcome {
+
+.block-welcome {
     padding: 3rem 0 0;
     position: relative;
     overflow: hidden;
+
     .mm-container-fluid {
         display: flex;
         align-items: center;
+        position: relative;
+        overflow: hidden;
     }
+
     .scroll-circle {
         position: relative;
         width: 18rem;
@@ -35,6 +28,8 @@
             width: 100%;
             height: 100%;
             animation: rotateText 14s linear infinite;
+            min-height: clamp(10rem, 20vw, 18rem);
+            min-width: clamp(10rem, 20vw, 18rem);
         }
 
         text {
@@ -49,12 +44,17 @@
             left: 50%;
             transform: translate(-50%, -50%);
             @include iconify-mask("guidance:down-arrow", 5rem, 5rem, $textColor);
+
+            @include mediaMaxWidth($sm) {
+                width: 3rem;
+                height: 3rem;
+            }
         }
     }
     .welcome-aiot {
         display: inline-flex;
         align-items: center;
-        font-size: 13rem;
+        font-size: clamp(5rem, 20vw, 13rem);
         font-weight: $thin;
         line-height: 1em;
         text-transform: uppercase;
