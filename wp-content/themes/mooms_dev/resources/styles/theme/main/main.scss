@@ -440,3 +440,78 @@ select.wpcf7-form-control {
     height: 100%;
   }
 }
+
+.list-items {
+  --gap: 3rem;
+
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--gap);
+
+  .item-post {
+    max-width: calc((100% - (2 * var(--gap))) / 3);
+    position: relative;
+    flex: 1 1 calc((100% - (2 * var(--gap))) / 3);
+    background-color: #fff;
+    border-radius: 3rem;
+    overflow: hidden;
+
+    @include mediaMaxWidth($md) {
+      max-width: 100%;
+      flex: 1 1 100%;
+    }
+
+    .content {
+      padding: 2.5rem;
+      text-align: start;
+    }
+    .top {
+      display: inline-flex;
+      column-gap: 2rem;
+      font-weight: $regular;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .date {
+      color: $primaryColor;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -1rem;
+        width: 1px;
+        height: 100%;
+        background-color: $textColor;
+        transform: translateY(-50%);
+      }
+    }
+    .category {
+      color: $textColor;
+    }
+    .title-post {
+      margin-top: 2rem;
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      font-weight: 500;
+      color: $textColor;
+      @include transition;
+    }
+    img,
+    .title-post {
+      @include transition;
+    }
+    &:hover {
+      .title-post {
+        color: $primaryColor;
+      }
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

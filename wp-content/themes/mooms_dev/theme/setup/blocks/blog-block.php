@@ -68,7 +68,6 @@ Block::make(__('Block blog', 'gaumap'))
     $url = !empty($fields['blog_page_url']) ? esc_url($fields['blog_page_url']) : '';
     $type = !empty($fields['display_type']) ? $fields['display_type'] : '';
     $blogs = !empty($fields['manual_blog']) ? $fields['manual_blog'] : '';
-    var_dump($type);
 ?>
     <section class="block-blog full-width">
         <div class="mm-container">
@@ -76,7 +75,7 @@ Block::make(__('Block blog', 'gaumap'))
                     <h2 class="block-title"><?= $title; ?></h2>
                 <?php endif; ?>
 
-                <div class="items">
+                <div class="list-items">
                 <?php
                         if ($type == 'auto') :
                             $post_query = new WP_Query([
@@ -88,14 +87,14 @@ Block::make(__('Block blog', 'gaumap'))
                             ]);
                             if ($post_query->have_posts()) :
                                 while ($post_query->have_posts()) : $post_query->the_post();
-                                    get_template_part('../template-parts/loop','post');
+                                    get_template_part('template-parts/loop','post');
                                 endwhile;
                             endif;
                             wp_reset_postdata();
                             wp_reset_query();
                         elseif ($type == 'manual') :
                             foreach ($blogs as $blog) :
-                                get_template_part('../template-parts/loop','post');
+                                get_template_part('template-parts/loop','post');
                             endforeach;
                         endif;
 					?>
