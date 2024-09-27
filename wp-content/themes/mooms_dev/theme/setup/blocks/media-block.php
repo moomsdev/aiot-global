@@ -63,41 +63,50 @@ Block::make(__('Block Media', 'gaumap'))
         $types = $fields['type_media'];
         $img = !empty($fields['image_media']) ? $fields['image_media'] : null;
         $type_video = $fields['type_video'];
-        $videoUpload = !empty($fields['video_upload']) ? esc_url($fields['video_upload']) : null;
+        $videoUpload = !empty($fields['video_upload']) ? esc_url(wp_get_attachment_url($fields['video_upload'])) : null;
         $videoEmbed = !empty($fields['video_embed']) ? esc_url($fields['video_embed']) : null;
         $welcomeText = !empty($fields['text_welcome']) ? esc_html($fields['text_welcome']) : 'Welcome to AIOT-global';
         ?>
         <section class="block-media full-width">
-            <?php if ($types === 'image' && $img): ?>
-                <figure class="media">
+            <?php 
+            if ($types === 'image' && $img):
+                
+                echo '<figure class="media">
                     <img
-                        src="<?= esc_url(getImageUrlById($img, 1920, 1080)); ?>"
-                        srcset="<?= esc_url(getImageUrlById($img, 400, 300)); ?> 400w,
-                                <?= esc_url(getImageUrlById($img, 800, 600)); ?> 800w,
-                                <?= esc_url(getImageUrlById($img, 1200, 900)); ?> 1200w"
+                        src="' . esc_url(getImageUrlById($img, 1920, 1080)) . '"
+                        srcset="' . esc_url(getImageUrlById($img, 400, 300)) . ' 400w,
+                                ' . esc_url(getImageUrlById($img, 800, 600)) . ' 800w,
+                                ' . esc_url(getImageUrlById($img, 1200, 900)) . ' 1200w"
                         sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
                         width="1920" height="1080"
-                        alt="<?= esc_attr(get_post_meta($img, '_wp_attachment_image_alt', true) ?: get_the_title($img)); ?>"
-                        loading="lazy"
-                    >
-                </figure>
-            <?php elseif ($types === 'video' && $type_video === 'upload' && $videoUpload): ?>
-                <figure>
-                    <video
-                        src="<?= $videoUpload; ?>"
-                        autoplay
-                        loop
-                        muted
-                        playsinline
-                        preload="auto"
-                        width="1920" height="1080"
-                    ></video>
-                </figure>
-            <?php elseif ($types === 'video' && $type_video === 'embed' && $videoEmbed): ?>
-                <div class="embed-responsive">
-                    <?= wp_oembed_get($videoEmbed); ?>
-                </div>
-            <?php endif; ?>
+                        alt="' . esc_attr(get_post_meta($img, '_wp_attachment_image_alt', true) ?: get_the_title($img)) . '"
+                        loading="lazy">
+                </figure>';
+            
+            elseif ($types === 'video' && $type_video === 'upload' && $videoUpload): 
+                $filetype = wp_check_filetype($videoUpload);
+                if (strpos($filetype['type'], 'video') !== false) {
+                    echo '<figure class="media">
+                        <video
+                            src="' . $videoUpload . '"
+                            autoplay
+                            loop
+                            muted
+                            playsinline
+                            preload="auto"
+                            width="1920"
+                            height="1080"
+                        ></video>
+                    </figure>';
+                } else {
+                    echo 'The file is not a video.';
+                }
+                
+            elseif ($types === 'video' && $type_video === 'embed' && $videoEmbed):
+
+                echo '<div class="embed-responsive">' . wp_oembed_get($videoEmbed) . '</div>';
+
+            endif; ?>
         </section>
 
         <section class="block-welcome full-width">
