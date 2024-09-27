@@ -17,7 +17,7 @@ define('AUTHOR', [
     'date_published' => get_option('_theme_info_date_publish'),
 ]);
 
-define('SUPER_USER', ['mooms_dev']);
+define('SUPER_USER', ['mooms_dev','aiot']);
 
 /**
  * Constant definitions.

@@ -17,6 +17,7 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 	->set_page_file('app-theme-options.php')
 	->add_tab(__('Branding | Thương hiệu', 'gaumap'), [
 		Field::make('image', 'logo' . currentLanguage(), __('Logo', 'gaumap'))->set_width(33.33),
+		Field::make('image', 'footer_logo' . currentLanguage(), __('Footer Logo', 'gaumap'))->set_width(33.33),
 		Field::make('image', 'hinh_anh_mac_dinh' . currentLanguage(), __('Default image | Hình ảnh mặc định', 'gaumap'))->set_width(33.33),
 	])
 	->add_tab(__('Contact | Liên hệ', 'gaumap'), [

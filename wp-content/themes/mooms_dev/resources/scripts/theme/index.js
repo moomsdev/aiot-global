@@ -8,7 +8,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AOS from "aos/dist/aos";
 import 'jquery.easing';
 
-
 jQuery(document).ready(function () {
   const swup = new Swup();
   initializePageFeatures();
@@ -143,3 +142,19 @@ function enableDesktopMenu() {
   $('#header').find('.nav-wrap').append($desktopMenu);
   $('.btn-submenu').remove();
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+  submenuToggles.forEach(function (toggle) {
+    toggle.addEventListener('click', function () {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+      this.classList.toggle('is-active');
+      const submenu = this.nextElementSibling;
+      if (submenu && submenu.tagName === 'UL') {
+        submenu.classList.toggle('is-active');
+      }
+    });
+  });
+});
