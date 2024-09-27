@@ -26,6 +26,8 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 			->set_attribute('placeholder', 'Company | Công ty'),
 		Field::make('text', 'address' . currentLanguage(), __('', 'gaumap'))->set_width(50)
 			->set_attribute('placeholder', 'Address | Địa chỉ'),
+		Field::make('textarea', 'googlemap' . currentLanguage(), __('', 'gaumap'))
+			->set_attribute('placeholder', 'Google map'),
 		Field::make('text', 'email' . currentLanguage(), __('', 'gaumap'))->set_width(50)
 			->set_attribute('placeholder', 'Email'),
 		Field::make('text', 'phone_number' . currentLanguage(), __('', 'gaumap'))->set_width(50)
@@ -38,6 +40,14 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 			->set_attribute('placeholder', 'instagram'),
 		Field::make('text', 'twitter' . currentLanguage(), __('', 'gaumap'))->set_width(33.33)
 			->set_attribute('placeholder', 'twitter'),
+	])
+	->add_tab(__('Footer', 'gaumap'), [
+		Field::make('text', 'contact_label' . currentLanguage(), __('', 'gaumap'))->set_width(50)
+			->set_attribute('placeholder', 'Contact label | Nhãn liên hệ'),
+		Field::make('text', 'contact_url' . currentLanguage(), __('', 'gaumap'))->set_width(50)
+			->set_attribute('placeholder', 'Contact URL | Liên kết liên hệ'),
+		Field::make('textarea', 'contact_message' . currentLanguage(), __('', 'gaumap'))
+			->set_attribute('placeholder', 'Contact description | Mô tả liên hệ'),
 	])
 	->add_tab(__('Scripts', 'gaumap'), [
 		Field::make('header_scripts', 'crb_header_script', __('Header Script', 'app')),

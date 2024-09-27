@@ -1,90 +1,125 @@
 footer {
-    padding: 117px 0 120px 0;
-    position: relative;
-    background-size: cover;
+    background-color: #f4f4f4;
 
-    ul {
-        list-style: none;
-    }
-
-    .logo {
-        margin-bottom: 5rem;
-        img {
-            max-width: 16.8rem;
-        }
-    }
-
-    .information {
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        li,
-        a {
-            display: flex;
-            align-items: center;
-            column-gap: 1.5rem;
-            color: #fff !important;
-            font-size: 1.5rem !important;
-
-            &:hover {
-                color: $primaryColor;
-            }
-        }
-    }
-
-    .socials {
-        margin-top: 2rem;
-        display: flex;
-        align-items: center;
-        column-gap: 3rem;
-
-        svg {
-            width: 4rem;
-            height: 4rem;
-            fill: #fff;
-            transition: all 0.25s linear;
-
-            &:hover {
-                fill: $primaryColor;
-            }
-        }
-    }
-    .column {
-        &.--pd-left {
-            padding-left: 100px;
-            @include mediaMaxWidth($md) {
-                padding-left: 0;
-            }
-        }
-        .one-half {
-            width: 50%;
-            &.second {
-                padding-left: 23px;
-                @include mediaMaxWidth($md) {
-                    padding-left: 0;
-                }
-            }
-        }
-        ul li {
-            a {
-                font-size: 14px;
-                line-height: 38px;
-                color: #b8c4d0;
-                &:hover {
-                    color: $primaryColor;
+    .footer-top {
+        position: relative;
+        &:hover {
+            #back-to-top {
+                background-color: #fff;
+                .svg {
+                    background-color: $primaryColor;
                 }
             }
         }
     }
-    .column-title {
-        margin-bottom: 4rem;
-        font-size: 2rem;
-        font-weight: 700;
-        color: #fff;
-        @include mediaMaxWidth($md) {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+    #back-to-top {
+        padding: 2rem;
+        position: absolute;
+        top: 50%;
+        right: 2rem;
+        transform: translate(-50%, -50%);
+        z-index: 99;
+        border-radius: 50%;
+        background-color: $primaryColor;
+        transition: all 0.5s ease-out 0.2s;
+        border: 2px solid $primaryColor;
+        .svg {
+            @include iconify-mask("guidance:up-arrow", 3rem, 3rem, #fff);
+        }
+    }
+
+    .contactLink {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        display: block;
+        padding: 5.78125vw;
+        width: 100%;
+        text-align: center;
+        border-radius: 3rem;
+
+        @include mediaMaxWidth($sm) {
+            overflow: visible;
+            display: inline-block;
+            padding: 0;
+            width: auto;
+        }
+
+        ._label {
+            font-weight: 600;
+            font-size: 5.7rem;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            color: $primaryColor;
+
+            @include mediaMaxWidth($sm) {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translate(-50%, calc(-100% - 1.3rem));
+                font-size: 3.6rem;
+                line-height: 0.83;
+                white-space: nowrap;
+                pointer-events: none;
+            }
+        }
+
+        ._circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vw;
+            background-color: $primaryColor;
+            border-radius: 100%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease-out 0.2s;
+
+            @include mediaMaxWidth($sm) {
+                display: none;
+            }
+        }
+
+        ._message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 2rem;
+            line-height: 1.35;
+            letter-spacing: 0.16em;
+            text-decoration-line: underline;
+            color: #fff;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.4s ease-out 0s;
+            white-space: nowrap;
+
+            @include mediaMaxWidth($sm) {
+                position: static;
+                transform: none;
+                opacity: 1;
+                font-size: 1.1rem;
+                line-height: 1.73;
+                letter-spacing: 0.1em;
+                text-align: center;
+                color: #251e1c;
+            }
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                ._circle {
+                    transform: translate(-50%, -50%) scale(1);
+                    transition-delay: 0s;
+                }
+
+                ._message {
+                    opacity: 1;
+                    transition-delay: 0.2s;
+                }
+            }
         }
     }
 }

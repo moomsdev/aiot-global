@@ -6,7 +6,8 @@ import Swup from 'swup';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AOS from "aos/dist/aos";
-import Swiper from 'swiper/swiper-bundle.min';
+import 'jquery.easing';
+
 
 jQuery(document).ready(function () {
   const swup = new Swup();
@@ -20,7 +21,6 @@ jQuery(document).ready(function () {
 
 function initializePageFeatures() {
   initAnimations();
-  // setupSwiperSlider();
   setupBackToTopButton();
   setupMenuFixedBehavior();
   setupMobileMenuHandling();
@@ -48,42 +48,12 @@ function initAnimations() {
     duration: 400,
   });
 }
-/**
- * Swiper slider
- */
-function setupSwiperSlider() {
-
-  // const swiper_slider = new Swiper('.intro-slider', {
-  //   loop: true,
-  //   slidesPerView: 3,
-  //   spaceBetween: 20,
-  //   speed: 5000,
-  //   autoplay: {
-  //     delay: 2500,
-  //     disableOnInteraction: false,
-  //   },
-  //   freeMode: true,
-  //   freeModeMomentum: false,
-  // });
-  // setTimeout(() => {
-  //   new Swiper('.intro-slider', {
-  //     spaceBetween: 30,
-  //     centeredSlides: true,
-  //     effect: 'fade',
-  //     speed: 1500,
-  //     autoplay: {
-  //       delay: 5000,
-  //       disableOnInteraction: false,
-  //     },
-  //   });
-  // }, 500);
-}
 
 /**
  * Back to top button
  */
 function setupBackToTopButton() {
-  const btn = $('#button');
+  const btn = $('#back-to-top');
 
   $(window).on('scroll', function () {
     if ($(window).scrollTop() > 600) {
@@ -95,9 +65,10 @@ function setupBackToTopButton() {
 
   btn.on('click', function (e) {
     e.preventDefault();
-    $('html, body').animate({ scrollTop: 0 }, 300);
+    $('html, body').animate({ scrollTop: 0 }, 600, 'easeInOutCubic');
   });
 }
+
 
 /**
  * Menu fixed behavior
