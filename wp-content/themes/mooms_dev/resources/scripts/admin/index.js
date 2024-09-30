@@ -31,5 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     subscribe(() => {
         addGuideListener('carbon-fields/block-intro', 'intro-guide');
         addGuideListener('carbon-fields/block-service', 'service-guide');
+        addGuideListener('carbon-fields/block-blog', 'blog-guide');
     });
 });

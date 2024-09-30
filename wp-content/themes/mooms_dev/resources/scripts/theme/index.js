@@ -23,6 +23,8 @@ function initializePageFeatures() {
   setupBackToTopButton();
   setupMenuFixedBehavior();
   setupMobileMenuHandling();
+  setupSubmenuToggleHandling();
+  setupHideHeaderOnScroll();
 }
 /**
  * Khởi tạo hoạt ảnh GSAP và AOS
@@ -68,7 +70,6 @@ function setupBackToTopButton() {
   });
 }
 
-
 /**
  * Menu fixed behavior
  */
@@ -77,7 +78,7 @@ function setupMenuFixedBehavior() {
 
   $(window).on('scroll', () => {
     const isMobile = window.innerWidth <= 768;
-    const scrollThreshold = isMobile ? 90 : 130.8;
+    const scrollThreshold = isMobile ? 90 : 106;
 
     if (window.scrollY > scrollThreshold) {
       navbar.classList.add('fixed');
@@ -143,18 +144,69 @@ function enableDesktopMenu() {
   $('.btn-submenu').remove();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+// document.addEventListener('DOMContentLoaded', function () {
+//   const submenuToggles = document.querySelectorAll('.submenu-toggle');
 
-  submenuToggles.forEach(function (toggle) {
-    toggle.addEventListener('click', function () {
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', !isExpanded);
-      this.classList.toggle('is-active');
-      const submenu = this.nextElementSibling;
-      if (submenu && submenu.tagName === 'UL') {
-        submenu.classList.toggle('is-active');
-      }
+//   submenuToggles.forEach(function (toggle) {
+//     toggle.addEventListener('click', function () {
+//       const isExpanded = this.getAttribute('aria-expanded') === 'true';
+//       this.setAttribute('aria-expanded', !isExpanded);
+//       this.classList.toggle('is-active');
+//       const submenu = this.nextElementSibling;
+//       if (submenu && submenu.tagName === 'UL') {
+//         submenu.classList.toggle('is-active');
+//       }
+//     });
+//   });
+// });
+
+/**
+ * Setup submenu toggle handling (JS mới của bạn)
+ */
+function setupSubmenuToggleHandling() {
+  document.addEventListener('DOMContentLoaded', function () {
+    const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+    submenuToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        this.classList.toggle('is-active');
+        const submenu = this.nextElementSibling;
+        if (submenu && submenu.tagName === 'UL') {
+          submenu.classList.toggle('is-active');
+        }
+      });
     });
   });
-});
+}
+
+/**
+ * Ẩn/hiện header khi scroll
+ */
+function setupHideHeaderOnScroll() {
+  let lastScrollTop = 0;
+  let header = document.getElementById('header');
+  let scrollTimeout;
+
+  window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimeout); // Clear timeout khi có sự kiện scroll xảy ra
+
+    let currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScrollTop > lastScrollTop) {
+      // Khi scroll xuống, ẩn header
+      header.classList.add('hidden');
+    } else {
+      // Khi scroll lên, hiện header
+      header.classList.add('hidden');
+    }
+
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Ngăn việc giá trị scrollTop là âm
+
+    // Chờ một khoảng thời gian sau khi cuộn để hiện lại header nếu người dùng ngừng cuộn
+    scrollTimeout = setTimeout(() => {
+      header.classList.remove('hidden');
+    }, 500);
+  });
+}
