@@ -483,3 +483,5 @@ function getVideoUrl($video_link)
 
     return $video_html;
 }
+
+add_post_type_support( 'page', 'excerpt' );

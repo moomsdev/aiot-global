@@ -14,7 +14,7 @@
 				<a class="contactLink" href="<?= esc_url(getOption('contact_url'));?>">
 					<span class="_label"><?= esc_html(getOption('contact_label'));?></span>
 					<span class="_circle"></span>
-					<span class="_message"><?= apply_filters('the_content',esc_html(getOption('contact_message')));?></span>
+					<span class="_message"><?= apply_filters('the_content',wp_kses_post(getOption('contact_message')));?></span>
 				</a>
 			</div>
 		</div>

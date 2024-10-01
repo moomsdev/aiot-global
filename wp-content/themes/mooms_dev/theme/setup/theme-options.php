@@ -29,10 +29,12 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 			->set_attribute('placeholder', 'Address | Địa chỉ'),
 		Field::make('textarea', 'googlemap' . currentLanguage(), __('', 'gaumap'))
 			->set_attribute('placeholder', 'Google map'),
-		Field::make('text', 'email' . currentLanguage(), __('', 'gaumap'))->set_width(50)
+		Field::make('text', 'email' . currentLanguage(), __('', 'gaumap'))->set_width(33.33)
 			->set_attribute('placeholder', 'Email'),
-		Field::make('text', 'phone_number' . currentLanguage(), __('', 'gaumap'))->set_width(50)
+		Field::make('text', 'phone_number' . currentLanguage(), __('', 'gaumap'))->set_width(33.33)
 			->set_attribute('placeholder', 'Phone number | Số điện thoại'),
+		Field::make('text', 'hour_working' . currentLanguage(), __('', 'gaumap'))->set_width(33.33)
+			->set_attribute('placeholder', 'Hour working | Giờ làm việc'),
 		Field::make('html', 'socials', __('', 'gaumap'))
 			->set_html('----<i> Socials | Mạng xã hội </i>----'),
 		Field::make('text', 'facebook' . currentLanguage(), __('', 'gaumap'))->set_width(33.33)
