@@ -25,6 +25,7 @@ function initializePageFeatures() {
   setupMobileMenuHandling();
   setupSubmenuToggleHandling();
   setupHideHeaderOnScroll();
+  setupAjaxSendMail();
 }
 /**
  * Khởi tạo hoạt ảnh GSAP và AOS
@@ -51,24 +52,51 @@ function initAnimations() {
 }
 
 /**
- * Back to top button
+ * Back to top button with hide on scroll and footer detection
  */
 function setupBackToTopButton() {
-  const btn = $('#back-to-top');
+  const backToTopBtn = $('#back-to-top');
+  const footerOffsetTop = $('#footer').offset().top;
+  const windowHeight = $(window).height();
+  let scrollTimeout;
+  const pageHeight = $(document).height();
+  const scrollThreshold = pageHeight * 0.1; // 10% chiều cao trang
 
+  // Sự kiện scroll để xử lý nút "Back to top"
   $(window).on('scroll', function () {
-    if ($(window).scrollTop() > 600) {
-      btn.addClass('show');
+    const scrollTop = $(this).scrollTop();
+
+    // Kiểm tra nếu người dùng đã scroll quá 10% chiều cao trang để hiện nút "Back to top"
+    if (scrollTop > scrollThreshold) {
+      backToTopBtn.addClass('fixed'); // Thêm class fixed
     } else {
-      btn.removeClass('show');
+      backToTopBtn.removeClass('fixed show hidden'); // Xóa tất cả các class nếu cuộn lên trên ngưỡng
     }
+
+    // Ẩn nút "Back to top" khi scroll (cả cuộn lên và cuộn xuống đều ẩn)
+    backToTopBtn.addClass('hidden').removeClass('show'); // Ẩn nút khi có cuộn
+
+    // Kiểm tra nếu gần tới footer thì xóa cả `fixed` và `hidden`
+    if (scrollTop + windowHeight >= footerOffsetTop) {
+      backToTopBtn.removeClass('fixed hidden').addClass('show'); // Xóa `fixed`, hiện lại nút khi gần footer
+    }
+
+    // Xác định khi người dùng dừng cuộn
+    clearTimeout(scrollTimeout); // Xóa timeout cũ
+    scrollTimeout = setTimeout(function () {
+      if (scrollTop + windowHeight < footerOffsetTop) {
+        backToTopBtn.removeClass('hidden').addClass('show'); // Khi dừng cuộn, hiện lại nút nếu không gần footer
+      }
+    }, 500); // Thời gian chờ để xác định ngừng cuộn (200ms)
   });
 
-  btn.on('click', function (e) {
+  // Xử lý sự kiện click vào nút "Back to top"
+  backToTopBtn.on('click', function (e) {
     e.preventDefault();
-    $('html, body').animate({ scrollTop: 0 }, 600, 'easeInOutCubic');
+    $('html, body').animate({ scrollTop: 0 }, 500, 'easeInOutCubic');
   });
 }
+
 
 /**
  * Menu fixed behavior
@@ -208,5 +236,29 @@ function setupHideHeaderOnScroll() {
     scrollTimeout = setTimeout(() => {
       header.classList.remove('hidden');
     }, 500);
+  });
+}
+
+function setupAjaxSendMail() {
+  $('#contactForm').on('submit', function (e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    $.ajax({
+      url: ajaxurl, // Sử dụng biến ajaxurl
+      type: 'POST',
+      dataType: 'json',
+      data: formData + '&action=send_contact_form',
+      success: function (response) {
+        if (response.success) {
+          $('#formMessage').html('<p>' + response.data.message + '</p>');
+          $('#contactForm')[0].reset();
+        } else {
+          $('#formMessage').html('<p>' + response.data.message + '</p>');
+        }
+      },
+      error: function () {
+        $('#formMessage').html('<p>Đã xảy ra lỗi. Vui lòng thử lại.</p>');
+      }
+    });
   });
 }

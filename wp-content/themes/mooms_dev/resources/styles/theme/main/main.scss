@@ -75,6 +75,10 @@ figure {
       transform: translate(-50%, -50%);
     }
   }
+
+  &.border-radius-4 {
+    border-radius: 4rem;
+  }
 }
 
 input.wpcf7-submit {
@@ -101,7 +105,13 @@ select.wpcf7-form-control {
   box-shadow: none;
 }
 
-.block-title {
+h3.title {
+  font-size: clamp(2.2rem, 2.5vw, 3rem);
+  font-weight: 700;
+  line-height: 2.2;
+}
+
+h2.block-title {
   font-size: clamp(3rem, 2.5vw, 4.6rem);
   line-height: 2.2;
   font-weight: 700;
@@ -409,21 +419,27 @@ select.wpcf7-form-control {
   }
 }
 
-.swiper {
-  width: 100%;
-  height: 100%;
+.border-line-bottom {
+  position: relative;
 
-  .swiper-wrapper {
-    // display: flex;
-    // position: relative;
-    // overflow: hidden;
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
   }
-
-  .swiper-slide img {
-    display: block;
+  &::after {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    background: rgba(37, 30, 28, 0.1);
+  }
+  &::before {
+    width: 100%;
+    background: $primaryColor;
+    transform: scaleX(0.4);
+    transform-origin: left center;
+    transition: transform 0.4s ease-out;
   }
 }
 
