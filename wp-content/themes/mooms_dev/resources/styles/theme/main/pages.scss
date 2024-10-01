@@ -52,13 +52,34 @@ h1.page-title {
   margin-bottom: clamp(3rem, 5vw, 10rem);
 }
 
-// page thumbnail in parent page
-.page-thumbnail {
-  margin-bottom: clamp(3rem, 5vw, 5rem);
+.head-parent-page {
+  // page thumbnail in parent page
+  .page-thumbnail {
+    margin-bottom: clamp(3rem, 5vw, 5rem);
+  }
+
+  .page-excerpt {
+    line-height: 1.6;
+  }
+}
+
+.head-child-page {
+  position: relative;
+
+  .page-title-breadcrumb {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: clamp(3rem, 5vw, 8rem) clamp(5rem, 5vw, 10rem) clamp(5rem, 5vw, 10rem) clamp(3rem, 5vw, 5rem);
+    background-color: #fff;
+    border-top-right-radius: 3rem;
+  }
 }
 
 .child-pages {
-  padding: clamp(5rem, 5vw, 10rem) 0;
+  margin-top: clamp(7rem, 5vw, 10rem);
+  padding: clamp(7rem, 5vw, 10rem) 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 
   ul {
     @include ulReset;
