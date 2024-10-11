@@ -17,11 +17,13 @@ Block::make(__('Block Media', 'gaumap'))
         // Image field
         Field::make('image', 'image_media', __('Image', 'gaumap'))
             ->set_width(80)
-            ->set_conditional_logic([[
-                'field' => 'type_media',
-                'value' => 'image',
-                'compare' => '=',
-            ]]),
+            ->set_conditional_logic([
+                [
+                    'field' => 'type_media',
+                    'value' => 'image',
+                    'compare' => '=',
+                ]
+            ]),
 
         // Video type selection
         Field::make('select', 'type_video', __('Type video', 'gaumap'))
@@ -31,11 +33,13 @@ Block::make(__('Block Media', 'gaumap'))
                 'upload' => 'Upload',
             ])
             ->set_default_value('embed')
-            ->set_conditional_logic([[
-                'field' => 'type_media',
-                'value' => 'video',
-                'compare' => '=',
-            ]]),
+            ->set_conditional_logic([
+                [
+                    'field' => 'type_media',
+                    'value' => 'video',
+                    'compare' => '=',
+                ]
+            ]),
 
         // Video upload field
         Field::make('file', 'video_upload', __('Video upload', 'gaumap'))
@@ -67,10 +71,10 @@ Block::make(__('Block Media', 'gaumap'))
         $videoEmbed = !empty($fields['video_embed']) ? esc_url($fields['video_embed']) : null;
         $welcomeText = !empty($fields['text_welcome']) ? esc_html($fields['text_welcome']) : 'Welcome to AIOT-global';
         ?>
-        <section class="block-media full-width">
-            <?php 
+    <section class="block-media full-width">
+        <?php
             if ($types === 'image' && $img):
-                
+
                 echo '<figure class="media">
                     <img
                         src="' . esc_url(getImageUrlById($img, 1920, 1080)) . '"
@@ -82,8 +86,8 @@ Block::make(__('Block Media', 'gaumap'))
                         alt="' . esc_attr(get_post_meta($img, '_wp_attachment_image_alt', true) ?: get_the_title($img)) . '"
                         loading="lazy">
                 </figure>';
-            
-            elseif ($types === 'video' && $type_video === 'upload' && $videoUpload): 
+
+            elseif ($types === 'video' && $type_video === 'upload' && $videoUpload):
                 $filetype = wp_check_filetype($videoUpload);
                 if (strpos($filetype['type'], 'video') !== false) {
                     echo '<figure class="media">
@@ -101,17 +105,17 @@ Block::make(__('Block Media', 'gaumap'))
                 } else {
                     echo 'The file is not a video.';
                 }
-                
+
             elseif ($types === 'video' && $type_video === 'embed' && $videoEmbed):
 
                 echo '<div class="embed-responsive">' . wp_oembed_get($videoEmbed) . '</div>';
 
             endif; ?>
-        </section>
+    </section>
 
-        <section class="block-welcome full-width">
-            <div class="mm-container-fluid">
-                <div class="scroll-circle">
+    <section class="block-welcome full-width">
+        <div class="mm-container-fluid">
+            <!-- <div class="scroll-circle">
                     <svg viewBox="0 0 200 200">
                         <path id="circlePath" d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0" fill="none"/>
                         <text>
@@ -121,9 +125,9 @@ Block::make(__('Block Media', 'gaumap'))
                         </text>
                     </svg>
                     <div class="arrow"></div>
-                </div>
-                <div class="welcome-aiot"><?= $welcomeText; ?></div>
-            </div>
-        </section>
-        <?php
+                </div> -->
+            <div class="welcome-aiot"><?= $welcomeText; ?></div>
+        </div>
+    </section>
+    <?php
     });

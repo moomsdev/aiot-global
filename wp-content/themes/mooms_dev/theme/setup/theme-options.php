@@ -20,6 +20,7 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 		Field::make('image', 'footer_logo' . currentLanguage(), __('Footer Logo', 'gaumap'))->set_width(33.33),
 		Field::make('image', 'hinh_anh_mac_dinh' . currentLanguage(), __('Default image | Hình ảnh mặc định', 'gaumap'))->set_width(33.33),
 	])
+
 	->add_tab(__('Contact | Liên hệ', 'gaumap'), [
 		Field::make('html', 'info', __('', 'gaumap'))
 			->set_html('----<i> Information | Thông tin </i>----'),
@@ -44,7 +45,14 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 		Field::make('text', 'twitter' . currentLanguage(), __('', 'gaumap'))->set_width(33.33)
 			->set_attribute('placeholder', 'twitter'),
 	])
-	->add_tab(__('Footer', 'gaumap'), [
+
+	->add_tab(__('Header  |  Footer', 'gaumap'), [
+		Field::make('html', 'header', __('', 'gaumap'))
+			->set_html('----<i> Header </i>----'),
+		Field::make('text', 'header_label' . currentLanguage(), __('', 'gaumap'))->set_width(50),
+
+		Field::make('html', 'footer', __('', 'gaumap'))
+			->set_html('----<i> Footer </i>----'),
 		Field::make('text', 'contact_label' . currentLanguage(), __('', 'gaumap'))->set_width(50)
 			->set_attribute('placeholder', 'Contact label | Nhãn liên hệ'),
 		Field::make('text', 'contact_url' . currentLanguage(), __('', 'gaumap'))->set_width(50)
@@ -52,6 +60,7 @@ $optionsPage = Container::make('theme_options', __('Theme Options', 'gaumap'))
 		Field::make('textarea', 'contact_message' . currentLanguage(), __('', 'gaumap'))
 			->set_attribute('placeholder', 'Contact description | Mô tả liên hệ'),
 	])
+
 	->add_tab(__('Scripts', 'gaumap'), [
 		Field::make('header_scripts', 'crb_header_script', __('Header Script', 'app')),
 		Field::make('footer_scripts', 'crb_footer_script', __('Footer Script', 'app')),

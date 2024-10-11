@@ -48,18 +48,17 @@ function updateUserMeta($idUser, $key, $value)
     return update_user_meta($idUser, $key, $value) ?: add_user_meta($idUser, $key, $value);
 }
 
-
 function updateAttachmentSize($attachment_id, $fileName, $width, $height, $type)
 {
     $metadata = wp_get_attachment_metadata($attachment_id);
     if (is_array($metadata) && array_key_exists('sizes', $metadata)) {
-        $size     = $metadata['sizes'];
+        $size = $metadata['sizes'];
         $sizeName = $width . 'x' . $height;
         if (!array_key_exists($sizeName, $size)) {
             $metadata['sizes'][$sizeName] = [
-                'file'      => $fileName,
-                'width'     => $width,
-                'height'    => $height,
+                'file' => $fileName,
+                'width' => $width,
+                'height' => $height,
                 'mime-type' => $type,
             ];
         }
@@ -141,18 +140,18 @@ function getRelatePosts($postId = null, $postCount = null)
         if ($terms) {
             $arrTaxQuery[] = [
                 'taxonomy' => $taxonomy,
-                'field'    => 'term_id',
-                'terms'    => wp_list_pluck($terms, 'term_id'),
+                'field' => 'term_id',
+                'terms' => wp_list_pluck($terms, 'term_id'),
             ];
         }
     }
 
     return new WP_Query([
-        'post_type'      => $thisPost->post_type,
-        'post_status'    => 'publish',
+        'post_type' => $thisPost->post_type,
+        'post_status' => 'publish',
         'posts_per_page' => $postCount,
-        'post__not_in'   => [$thisPost->ID],
-        'tax_query'      => $arrTaxQuery,
+        'post__not_in' => [$thisPost->ID],
+        'tax_query' => $arrTaxQuery,
     ]);
 }
 
@@ -162,23 +161,23 @@ function getRelatePosts($postId = null, $postCount = null)
 function getLatestPosts($postType = 'post', $postCount = null)
 {
     return new WP_Query([
-        'post_type'      => $postType,
-        'post_status'    => 'publish',
+        'post_type' => $postType,
+        'post_status' => 'publish',
         'posts_per_page' => $postCount ?: get_option('posts_per_page'),
-        'orderby'        => 'date',
-        'order'          => 'DESC',
+        'orderby' => 'date',
+        'order' => 'DESC',
     ]);
 }
 
 function getTopViewPosts($postType = 'post', $postCount = null)
 {
     return new WP_Query([
-        'post_type'      => $postType,
-        'post_status'    => 'publish',
+        'post_type' => $postType,
+        'post_status' => 'publish',
         'posts_per_page' => $postCount ?: get_option('posts_per_page'),
-        'meta_key'       => '_gm_view_count',
-        'orderby'        => 'meta_value_num',
-        'order'          => 'DESC',
+        'meta_key' => '_gm_view_count',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC',
     ]);
 }
 
@@ -188,10 +187,14 @@ function getTopViewPosts($postType = 'post', $postCount = null)
 function formatHumanTime($time)
 {
     $diff = Carbon::now()->diffInSeconds(Carbon::parse($time));
-    if ($diff < 60) return __('Vừa mới đây', 'gaumap');
-    if ($diff < 3600) return sprintf(__('Khoảng %d phút trước', 'gaumap'), round($diff / 60));
-    if ($diff < 86400) return sprintf(__('Khoảng %d giờ trước', 'gaumap'), round($diff / 3600));
-    if ($diff < 604800) return sprintf(__('Khoảng %d ngày trước', 'gaumap'), round($diff / 86400));
+    if ($diff < 60)
+        return __('Vừa mới đây', 'gaumap');
+    if ($diff < 3600)
+        return sprintf(__('Khoảng %d phút trước', 'gaumap'), round($diff / 60));
+    if ($diff < 86400)
+        return sprintf(__('Khoảng %d giờ trước', 'gaumap'), round($diff / 3600));
+    if ($diff < 604800)
+        return sprintf(__('Khoảng %d ngày trước', 'gaumap'), round($diff / 86400));
     return sprintf(__('Khoảng %d tuần trước', 'gaumap'), round($diff / 604800));
 }
 
@@ -256,16 +259,16 @@ function getImageUrlById($attachment_id, $width = null, $height = null)
         return wp_get_attachment_image_url($attachment_id, 'full');
     }
 
-    $width               = $width ? absint($width) : 0;
-    $height              = $height ? absint($height) : 0;
-    $upload_dir          = wp_upload_dir();
+    $width = $width ? absint($width) : 0;
+    $height = $height ? absint($height) : 0;
+    $upload_dir = wp_upload_dir();
     $attachment_realpath = crb_normalize_path(get_attached_file($attachment_id));
 
     if (empty($attachment_realpath)) {
         return "https://via.placeholder.com/{$width}x{$height}";
     }
 
-    $filename  = basename($attachment_realpath);
+    $filename = basename($attachment_realpath);
     $fileParts = explode('.', $filename);
     $fileExt = $fileParts[count($fileParts) - 1];
     if (in_array($fileExt, ['gif', 'svg'])) {
@@ -274,7 +277,7 @@ function getImageUrlById($attachment_id, $width = null, $height = null)
 
     $filename = preg_replace('/(\.[^\.]+)$/', '-' . $width . 'x' . $height, $filename);
     $filepath = crb_normalize_path($upload_dir['basedir'] . '/' . $filename);
-    $url      = trailingslashit($upload_dir['baseurl']) . $filename;
+    $url = trailingslashit($upload_dir['baseurl']) . $filename;
 
     // If the resized image does not exist, fall back to the full image
     if (!file_exists($filepath)) {
@@ -283,7 +286,6 @@ function getImageUrlById($attachment_id, $width = null, $height = null)
 
     return $url;
 }
-
 
 /**
  * Resize image by image's url without add_image_size
@@ -303,8 +305,8 @@ function resizeImageFly($url, $width = null, $height = null, $crop = true, $reti
         return new WP_Error('no_image_url', __('No image URL has been entered.', 'wta'), $url);
     }
     // Get default size from database
-    $width  = $width ? : get_option('thumbnail_size_w');
-    $height = $height ? : get_option('thumbnail_size_h');
+    $width = $width ?: get_option('thumbnail_size_w');
+    $height = $height ?: get_option('thumbnail_size_h');
     // Allow for different retina sizes
     $retina = $retina ? ($retina === true ? 2 : $retina) : 1;
     // Get the image file path
@@ -314,17 +316,17 @@ function resizeImageFly($url, $width = null, $height = null, $crop = true, $reti
     if (is_multisite()) {
         global $blog_id;
         $blog_details = get_blog_details($blog_id);
-        $file_path    = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/' . $blog_id . '/files/', $file_path);
+        $file_path = str_replace($blog_details->path . 'files/', '/wp-content/blogs.dir/' . $blog_id . '/files/', $file_path);
     }
     // Destination width and height variables
-    $dest_width  = $width * $retina;
+    $dest_width = $width * $retina;
     $dest_height = $height * $retina;
     // File name suffix (appended to original file name)
     $suffix = "{$dest_width}x{$dest_height}";
     // Some additional info about the image
     $info = pathinfo($file_path);
-    $dir  = $info['dirname'];
-    $ext  = $info['extension'];
+    $dir = $info['dirname'];
+    $ext = $info['extension'];
     $name = wp_basename($file_path, ".$ext");
     if ('bmp' === $ext) {
         return new WP_Error('bmp_mime_type', __('Image is BMP. Please use either JPG or PNG.', 'wta'), $url);
@@ -338,7 +340,7 @@ function resizeImageFly($url, $width = null, $height = null, $crop = true, $reti
          *  Bail if this image isn't in the Media Library.
          *  We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
          */
-        $query          = $wpdb->prepare("SELECT * FROM $wpdb->posts WHERE guid='%s'", $url);
+        $query = $wpdb->prepare("SELECT * FROM $wpdb->posts WHERE guid='%s'", $url);
         $get_attachment = $wpdb->get_results($query);
         if (!$get_attachment) {
             return ['url' => $url, 'width' => $width, 'height' => $height];
@@ -349,12 +351,12 @@ function resizeImageFly($url, $width = null, $height = null, $crop = true, $reti
             return ['url' => $url, 'width' => $width, 'height' => $height];
         }
         // Get the original image size
-        $size        = $editor->get_size();
-        $orig_width  = $size['width'];
+        $size = $editor->get_size();
+        $orig_width = $size['width'];
         $orig_height = $size['height'];
-        $src_x       = $src_y = 0;
-        $src_w       = $orig_width;
-        $src_h       = $orig_height;
+        $src_x = $src_y = 0;
+        $src_w = $orig_width;
+        $src_h = $orig_height;
         if ($crop) {
             $cmp_x = $orig_width / $dest_width;
             $cmp_y = $orig_height / $dest_height;
@@ -374,10 +376,10 @@ function resizeImageFly($url, $width = null, $height = null, $crop = true, $reti
         // Now let's save the image
         $saved = $editor->save($dest_file_name);
         // Get resized image information
-        $resized_url    = str_replace(basename($url), basename($saved['path']), $url);
-        $resized_width  = $saved['width'];
+        $resized_url = str_replace(basename($url), basename($saved['path']), $url);
+        $resized_width = $saved['width'];
         $resized_height = $saved['height'];
-        $resized_type   = $saved['mime-type'];
+        $resized_type = $saved['mime-type'];
         // Add the resized dimensions to original image metadata (so we can delete our resized images when the original image is delete from the Media Library)
         $metadata = wp_get_attachment_metadata($get_attachment[0]->ID);
         if (isset($metadata['image_meta'])) {
@@ -386,17 +388,17 @@ function resizeImageFly($url, $width = null, $height = null, $crop = true, $reti
         }
         // Create the image array
         $image_array = [
-            'url'    => $resized_url,
-            'width'  => $resized_width,
+            'url' => $resized_url,
+            'width' => $resized_width,
             'height' => $resized_height,
-            'type'   => $resized_type,
+            'type' => $resized_type,
         ];
     } else {
         $image_array = [
-            'url'    => str_replace(basename($url), basename($dest_file_name), $url),
-            'width'  => $dest_width,
+            'url' => str_replace(basename($url), basename($dest_file_name), $url),
+            'width' => $dest_width,
             'height' => $dest_height,
-            'type'   => $ext,
+            'type' => $ext,
         ];
     }
     // Return image array
@@ -427,7 +429,7 @@ add_action('admin_init', function () {
 /**
  * Remove jQuery Migrate
  */
-add_action('wp_default_scripts', function($scripts) {
+add_action('wp_default_scripts', function ($scripts) {
     if (!is_admin() && isset($scripts->registered['jquery'])) {
         $script = $scripts->registered['jquery'];
         if ($script->deps) {
@@ -437,21 +439,19 @@ add_action('wp_default_scripts', function($scripts) {
 });
 
 // Get video
-
 function getYoutubeEmbedUrl($url)
 {
     $youtube_id = '';
     if (preg_match('/(youtube\.com.*(\?v=|\/embed\/|\/v\/|\/.+\/|youtu\.be\/|\/v\/)|\/shorts\/)([a-zA-Z0-9_-]{11})/', $url, $matches)) {
         $youtube_id = $matches[3];
     }
-    
+
     if (!empty($youtube_id)) {
         return 'https://www.youtube.com/embed/' . $youtube_id . '?modestbranding=1&showinfo=0&controls=1&frameborder=0&allow=accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&allowfullscreen';
     }
 
     return '';
 }
-
 
 function getVideoUrl($video_link)
 {
@@ -484,4 +484,23 @@ function getVideoUrl($video_link)
     return $video_html;
 }
 
-add_post_type_support( 'page', 'excerpt' );
+add_post_type_support('page', 'excerpt');
+
+/**
+ * get all page
+ */
+function getListAllPages()
+{
+    $pages = get_posts([
+        'post_type' => 'page',
+        'posts_per_page' => -1,
+        'lang' => get_icl_language_code(),
+    ]);
+
+    $list = [];
+    foreach ($pages as $page) {
+        $list[$page->ID] = $page->post_title;
+    }
+
+    return $list;
+}

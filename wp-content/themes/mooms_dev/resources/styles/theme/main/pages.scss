@@ -66,13 +66,171 @@ h1.page-title {
 .head-child-page {
   position: relative;
 
+  @include mediaMaxWidth($md) {
+    display: flex;
+    flex-wrap: wrap;
+
+    .page-thumbnail {
+      margin-bottom: 3rem;
+      width: 100%;
+      order: 2;
+    }
+  }
+
   .page-title-breadcrumb {
+    padding: clamp(3rem, 5vw, 8rem) clamp(5rem, 5vw, 10rem) clamp(5rem, 5vw, 10rem) clamp(3rem, 5vw, 5rem);
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: clamp(3rem, 5vw, 8rem) clamp(5rem, 5vw, 10rem) clamp(5rem, 5vw, 10rem) clamp(3rem, 5vw, 5rem);
+    min-width: 35%;
     background-color: #fff;
-    border-top-right-radius: 3rem;
+    border-top-right-radius: 4rem;
+
+    @include mediaMaxWidth($md) {
+      padding: 5rem 0;
+      position: relative;
+      bottom: unset;
+      left: unset;
+      min-width: 100%;
+      order: 1;
+    }
+  }
+}
+
+.body-child-page {
+  position: relative;
+  display: flex;
+
+  .page-sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100%;
+    max-width: 20%;
+    flex: 1 1 20%;
+
+    @include mediaMaxWidth($lg) {
+      max-width: 25%;
+      flex: 1 1 25%;
+    }
+
+    @include mediaMaxWidth($md) {
+      display: none;
+    }
+  }
+
+  .parent-page {
+    // padding-bottom: clamp(3rem, 5vw, 5rem);
+    padding: clamp(3rem, 5vw, 8rem) clamp(5rem, 5vw, 10rem) clamp(3rem, 5vw, 5rem) clamp(3rem, 5vw, 5rem);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+
+    .parent-link {
+      position: relative;
+      display: inline-block;
+      font-size: clamp(2rem, 5vw, 2.4rem);
+      font-weight: $bold;
+      letter-spacing: 0.25px;
+      color: $textColor;
+      transition: all 0.3s ease-out;
+
+      &::after {
+        content: "";
+        display: block;
+        position: relative;
+        bottom: 0.5rem;
+        width: 100%;
+        height: 1.8px;
+        background: linear-gradient(0deg, $textColor, $textColor) no-repeat right bottom / 0 1px;
+        background-size: 100% 1px;
+        transition: background-size 0.3s ease-out;
+      }
+      &:hover {
+        color: $primaryColor;
+        &::after {
+          background-size: 0 1px;
+          background-position-x: right;
+        }
+      }
+    }
+  }
+  .children-page {
+    padding: clamp(3rem, 5vw, 5rem) clamp(5rem, 5vw, 10rem) clamp(5rem, 5vw, 10rem) clamp(3rem, 5vw, 5rem);
+
+    ul {
+      @include ulReset;
+      li {
+        a {
+          padding: 1.8rem 0;
+          display: block;
+          font-size: clamp(1.6rem, 5vw, 1.8rem);
+          font-weight: 600;
+          color: $textColor;
+          text-decoration: none;
+          transition: color 0.3s ease-out;
+          &:hover {
+            color: $primaryColor;
+          }
+
+          position: relative;
+
+          &::after,
+          &::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+          }
+          &::after {
+            width: 100%;
+            background: rgba(37, 30, 28, 0.1);
+          }
+          &::before {
+            width: 100%;
+            background: $primaryColor;
+            transform: scaleX(0.2);
+            transform-origin: left center;
+            transition: transform 0.3s ease-out;
+          }
+
+          &:hover::before {
+            transform: scaleX(1);
+          }
+        }
+
+        &.current_page_item {
+          a {
+            color: $primaryColor;
+            &::before {
+              transform: scaleX(1);
+            }
+          }
+        }
+
+        &:first-child a {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+
+  .page-content {
+    padding: clamp(3rem, 5vw, 8rem) clamp(5rem, 5vw, 10rem) clamp(5rem, 5vw, 10rem) clamp(3rem, 5vw, 10rem);
+    max-width: 80%;
+    flex: 1 1 80%;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+
+    @include mediaMaxWidth($lg) {
+      max-width: 75%;
+      flex: 1 1 75%;
+    }
+
+    @include mediaMaxWidth($md) {
+      padding: 2rem 0;
+      max-width: 100%;
+      flex: 1 100%;
+      border-left: none;
+    }
   }
 }
 

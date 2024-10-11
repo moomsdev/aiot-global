@@ -5,6 +5,10 @@ header {
 
     transition: transform 0.3s ease;
 
+    @include mediaMaxWidth($md) {
+        display: none;
+    }
+
     &.fixed {
         padding: 2rem 0;
         background-color: #fff;
