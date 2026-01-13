@@ -1,0 +1,10 @@
+logs/
+
+conf/nginx/
+conf/php/
+conf/nginx/
+conf/mysql/
+.DS_Store
+local-site.json
+app/sql/
+db-data/
