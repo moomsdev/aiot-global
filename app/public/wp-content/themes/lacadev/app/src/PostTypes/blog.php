@@ -20,8 +20,8 @@ class blog extends \App\Abstracts\AbstractPostType
 
         $this->menuIcon         = 'dashicons-admin-post'; //https://developer.wordpress.org/resource/dashicons/
         $this->post_type        = 'blog';
-        $this->singularName     = $this->pluralName = __('Blog', 'mms'); 
-        $this->titlePlaceHolder = __('Post', 'mms');
+        $this->singularName     = $this->pluralName = __('Blog', 'laca'); 
+        $this->titlePlaceHolder = __('Post', 'laca');
         $this->slug             = 'blogs';
         parent::__construct();
     }

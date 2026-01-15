@@ -444,7 +444,7 @@ function sendContactForm() {
 
     // Kiểm tra các trường bắt buộc
     if (empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['email']) || empty($_POST['phone_number']) || empty($_POST['message'])) {
-        wp_send_json_error(['message' => __('Please fill in all required fields.', 'mms')]);
+        wp_send_json_error(['message' => __('Please fill in all required fields.', 'laca')]);
     }
 
     // Lấy thông tin từ form
@@ -480,12 +480,12 @@ function sendContactForm() {
     // Kiểm tra kết quả gửi email và phản hồi JSON
     if ($success) {
         ob_end_clean();
-        wp_send_json_success(['message' => __('Your request has been successfully submitted.', 'mms')]);
+        wp_send_json_success(['message' => __('Your request has been successfully submitted.', 'laca')]);
     } else {
         // Ghi lại log nếu gửi email thất bại
         error_log('Email failed to send.');
         ob_end_clean();
-        wp_send_json_error(['message' => __('An error occurred. Please try again later.', 'mms')]);
+        wp_send_json_error(['message' => __('An error occurred. Please try again later.', 'laca')]);
     }
 }
 

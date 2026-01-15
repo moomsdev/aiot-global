@@ -19,6 +19,7 @@ register_nav_menus(
 [
 		'main-menu' => __( 'Main Menu', 'laca' ),
     'footer-menu' => __( 'Footer Menu', 'laca' ),
+    'mobile-menu' => __( 'Mobile Menu', 'laca' ),
 	]
 );
 

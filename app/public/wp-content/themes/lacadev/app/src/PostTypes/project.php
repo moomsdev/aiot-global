@@ -21,8 +21,8 @@ class project extends \App\Abstracts\AbstractPostType
         $this->menuIcon         = 'dashicons-admin-site-alt3'; //https://developer.wordpress.org/resource/dashicons/
         // $this->menuIcon = get_template_directory_uri() . '/images/custom-icon.png';
         $this->post_type        = 'project';
-        $this->singularName     = $this->pluralName = __('Project', 'mms'); 
-        $this->titlePlaceHolder = __('Project', 'mms');
+        $this->singularName     = $this->pluralName = __('Project', 'laca'); 
+        $this->titlePlaceHolder = __('Project', 'laca');
         $this->slug             = 'project';
         add_action( 'carbon_fields_register_fields', [ $this, 'metaFields' ] );
         parent::__construct();
@@ -33,22 +33,22 @@ class project extends \App\Abstracts\AbstractPostType
      */
     public function metaFields()
     {
-        Container::make('post_meta', __('Description | Mô tả', 'mms'))
+        Container::make('post_meta', __('Description | Mô tả', 'laca'))
             ->set_context('advanced') // Sử dụng context 'normal' để hiển thị trong Gutenberg
             ->set_priority('high')
             ->where('post_type', 'IN', [$this->post_type])
             ->add_fields([
-                Field::make('color', 'color', __('Màu đại diện', 'mms'))
+                Field::make('color', 'color', __('Màu đại diện', 'laca'))
                     ->set_width(30),
                 
-                Field::make('complex', 'system_destination', __('システム導入先 | Danh sách hệ thống và địa điểm', 'mms'))
+                Field::make('complex', 'system_destination', __('システム導入先 | Danh sách hệ thống và địa điểm', 'laca'))
                     ->set_layout('tabbed-horizontal')
                     ->set_width(70)
                     ->add_fields([
-                        Field::make('text', 'content', __('Content | Nội dung', 'mms')),
+                        Field::make('text', 'content', __('Content | Nội dung', 'laca')),
                     ])->set_header_template('<% if (content) { %><%- content %><% } %>'),
                 
-                Field::make('rich_text', 'description', __('', 'mms')),
+                Field::make('rich_text', 'description', __('', 'laca')),
 
             ]);
     }

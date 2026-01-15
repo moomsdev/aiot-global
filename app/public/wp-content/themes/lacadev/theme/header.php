@@ -93,7 +93,7 @@ if (!defined('ABSPATH')) {
                             'menu_class' => 'nav_menu',
                             'container' => 'nav',
                             'container_class' => 'header__nav-container',
-                            'walker' => new MMS_Menu_Walker(),
+                            'walker' => new Laca_Menu_Walker(),
                         ]);
                         ?>
                         <!-- End Menu -->
@@ -123,7 +123,7 @@ if (!defined('ABSPATH')) {
                                     <path d="M15.9787 16.8496C15.8938 16.8496 15.8096 16.8269 15.739 16.7806L7.78951 11.5661C7.66748 11.4858 7.59802 11.3514 7.6061 11.2109C7.61443 11.0704 7.69959 10.9443 7.83019 10.8773L27.2847 0.952809C27.4617 0.863338 27.6786 0.900655 27.8104 1.04228C27.9419 1.18435 27.9519 1.39364 27.8347 1.54651C23.373 7.36008 16.6355 16.1768 16.361 16.6383C16.302 16.7376 16.199 16.8127 16.0815 16.8381C16.0477 16.8455 16.0132 16.8491 15.979 16.8491L15.9787 16.8496ZM8.85045 11.2768L15.8688 15.8807C17.2362 14.0016 23.3989 5.95283 26.0399 2.50776L8.85045 11.2768Z"></path>
                                     <path d="M8.62085 18.2992C8.49498 18.2992 8.39703 18.2321 8.2354 17.8804H8.22854C8.22854 17.8767 8.2283 17.8713 8.2283 17.8642C7.98757 17.3339 7.60506 16.1797 6.78591 13.7085C6.07328 11.5576 5.36801 9.40557 5.36801 9.40557C5.29674 9.18946 5.42825 8.96061 5.66138 8.89486C5.89353 8.82912 6.14063 8.9506 6.21115 9.16694C6.77783 10.8952 7.50539 13.1025 8.08504 14.842C8.02602 13.6248 7.95794 12.2473 7.90186 11.1185C7.8906 10.8924 8.07867 10.7011 8.3216 10.6906C8.566 10.6813 8.77072 10.8549 8.78223 11.0806C8.81578 11.7562 9.10989 17.6868 9.10989 17.8804C9.10989 18.0739 8.94925 18.2587 8.73301 18.2885C8.69187 18.2942 8.65514 18.2992 8.62061 18.2992H8.62085Z"></path>
                                 </svg>
-                                <?php echo _e('Contact', 'mms'); ?>
+                                <?php echo _e('Contact', 'laca'); ?>
                             </a>
                         </div>
                         <!-- End Contact -->
@@ -172,7 +172,7 @@ if (!defined('ABSPATH')) {
                     'menu_class' => 'nav_menu',
                     'container' => 'nav',
                     'container_class' => 'header__mobile-container',
-                    'walker' => new MMS_Menu_Walker(),
+                    'walker' => new Laca_Menu_Walker(),
                 ]);
                 ?>
 
@@ -180,7 +180,7 @@ if (!defined('ABSPATH')) {
                 <div class="mobile-header__menu-dropdown">
                     <button type="button" class="mobile-header__menu-toggle">
                         <span class="iconify" data-icon="mdi:menu"></span>
-                        <a class="menu-toggle__label"><?php _e('Menu', 'mms'); ?></a>
+                        <a class="menu-toggle__label"><?php _e('Menu', 'laca'); ?></a>
                     </button>
                 </div>
             </div>
@@ -218,7 +218,7 @@ if (!defined('ABSPATH')) {
                 <div class="mobile-menu__close">
                     <button class="button-close">
                         <span class="button-close__icon"></span>
-                        <span class="button-close__label"><?php _e('Close', 'mms'); ?></span>
+                        <span class="button-close__label"><?php _e('Close', 'laca'); ?></span>
                     </button>
                 </div>
             </div>
