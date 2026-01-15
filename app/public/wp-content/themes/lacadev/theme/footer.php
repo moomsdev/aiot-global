@@ -68,7 +68,7 @@ $contact = getOption('page_contact');
 							'menu_class' => 'nav_menu',
 							'container' => 'nav',
 							'container_class' => 'footer__nav',
-							'walker' => new MM_Menu_Walker(),
+							'walker' => new Laca_Menu_Walker(),
 						]);
 						?>
 					</div>
@@ -77,7 +77,10 @@ $contact = getOption('page_contact');
 		</div>
 		<div class="copyright">
 			<div class="mm-container text-center">
-				Copyright © AIOT-Global Co. Ltd. All rights Reserved.
+				<?php
+				$copyright = getOption('copyright');
+				echo $copyright ?? 'Copyright © AIOT-Global Co. Ltd. All rights Reserved.';
+				?>
 			</div>
 		</div>
 	</footer>
