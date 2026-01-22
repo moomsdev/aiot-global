@@ -223,3 +223,23 @@ a:focus-visible {
 // =============================================================================
 // END ACCESSIBILITY STYLES
 // =============================================================================
+
+#wpadminbar {
+  a {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  #wp-admin-bar-logo_author a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-height: 2rem;
+    }
+  }
+}

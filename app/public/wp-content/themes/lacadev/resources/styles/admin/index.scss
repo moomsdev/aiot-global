@@ -1,6 +1,6 @@
 // Custom Post Order
 @use "post-order";
-@use "admin-custom";
+// @use "admin-custom";
 
 html:where(.wp-block) {
   max-width: 120rem;
@@ -94,4 +94,24 @@ button[data-toggle="password-toggle"] {
 
 .dashicons, .dashicons-before:before {
   font-family: "dashicons" !important;
+}
+
+#wpadminbar {
+  a {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  #wp-admin-bar-logo_author a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-height: 2rem;
+    }
+  }
 }
