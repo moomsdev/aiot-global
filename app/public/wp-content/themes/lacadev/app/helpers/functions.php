@@ -568,11 +568,11 @@ add_post_type_support('page', 'excerpt');
 
 //Duplicate post
 /*
- * Thêm link 'Duplicate & Publish' vào danh sách bài viết
+ * Thêm link 'Duplicate' vào danh sách bài viết
  */
 function dev_duplicate_post_as_publish( $actions, $post ) {
     if ( current_user_can( 'edit_posts' ) ) {
-        $actions['duplicate_publish'] = '<a href="' . wp_nonce_url( 'admin.php?action=dev_duplicate_post_as_publish&post=' . $post->ID, basename( __FILE__ ), 'duplicate_nonce' ) . '" title="Duplicate & Publish this item" rel="permalink">Duplicate & Publish</a>';
+        $actions['duplicate_publish'] = '<a href="' . wp_nonce_url( 'admin.php?action=dev_duplicate_post_as_publish&post=' . $post->ID, basename( __FILE__ ), 'duplicate_nonce' ) . '" title="Duplicate this item as draft" rel="permalink">Duplicate</a>';
     }
     return $actions;
 }
@@ -580,7 +580,7 @@ add_filter( 'post_row_actions', 'dev_duplicate_post_as_publish', 10, 2 );
 add_filter( 'page_row_actions', 'dev_duplicate_post_as_publish', 10, 2 );
 
 /*
- * Xử lý logic nhân bản và public ngay lập tức
+ * Xử lý logic nhân bản và lưu ở trạng thái draft
  */
 function dev_save_duplicate_post_as_publish() {
     if ( ! ( isset( $_GET['post'] ) || isset( $_POST['post'] ) || ( isset($_REQUEST['action']) && 'dev_duplicate_post_as_publish' == $_REQUEST['action'] ) ) ) {
@@ -607,7 +607,7 @@ function dev_save_duplicate_post_as_publish() {
             'post_name'      => $post->post_name . '-copy', // Slug mới
             'post_parent'    => $post->post_parent,
             'post_password'  => $post->post_password,
-            'post_status'    => 'publish', // QUAN TRỌNG: Set thẳng là publish
+            'post_status'    => 'draft', // QUAN TRỌNG: Set là draft
             'post_title'     => $post->post_title . ' (Copy)',
             'post_type'      => $post->post_type,
             'to_ping'        => $post->to_ping,
