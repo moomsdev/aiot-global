@@ -38,13 +38,6 @@ class PLL_Import_Export {
 	private $model;
 
 	/**
-	 * Reference to the instance of PLL_Bulk_Translate
-	 *
-	 * @var PLL_Bulk_Translate
-	 */
-	private $bulk_translate;
-
-	/**
 	 * Constructor
 	 * Registers the hooks
 	 *
@@ -53,11 +46,10 @@ class PLL_Import_Export {
 	 * @param PLL_Base $polylang Current instance of the Polylang context.
 	 */
 	public function __construct( &$polylang ) {
-		$this->model          = &$polylang->model;
-		$this->bulk_translate = &$polylang->bulk_translate;
+		$this->model = &$polylang->model;
 
 		if ( $polylang instanceof PLL_Admin && class_exists( 'PLL_Export_Bulk_Option' ) ) {
-			add_action( 'admin_init', array( $this, 'add_bulk_export' ) );
+			add_action( 'pll_bulk_translate_options_init', array( $this, 'add_bulk_translate_options' ) );
 		}
 
 		if ( $polylang instanceof PLL_Settings ) {
@@ -78,7 +70,7 @@ class PLL_Import_Export {
 						array(
 							self::TYPE_POST            => new PLL_Import_Posts( new PLL_Translation_Post_Model( $polylang ) ),
 							self::TYPE_TERM            => new PLL_Import_Terms( new PLL_Translation_Term_Model( $polylang ) ),
-							self::STRINGS_TRANSLATIONS => new PLL_Import_Strings(),
+							self::STRINGS_TRANSLATIONS => new PLL_Import_Strings( new PLL_Translation_Strings_Model() ),
 						),
 						new PLL_File_Format_Factory()
 					) )->import_action();
@@ -97,12 +89,13 @@ class PLL_Import_Export {
 	 * Adds 'pll_export_post' bulk option in Translate bulk action {@see PLL_Bulk_Translate::register_options()}
 	 *
 	 * @since 2.7
+	 * @since 3.6.5 Added `$bulk_translate` parameter.
 	 *
+	 * @param PLL_Bulk_Translate $bulk_translate Instance of `PLL_Bulk_Translate`.
 	 * @return void
 	 */
-	public function add_bulk_export() {
-
-		$this->bulk_translate->register_options(
+	public function add_bulk_translate_options( $bulk_translate ): void {
+		$bulk_translate->register_options(
 			array(
 				new PLL_Export_Bulk_Option(
 					$this->model,
@@ -147,6 +140,7 @@ class PLL_Import_Export {
 	 * @return void
 	 */
 	public function metabox_export_strings() {
+		$model = $this->model;
 		include POLYLANG_PRO_DIR . '/modules/import-export/export/view-tab-export-strings.php';
 	}
 
@@ -170,6 +164,6 @@ class PLL_Import_Export {
 	 */
 	public function admin_enqueue_style() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_enqueue_style( 'pll-admin-export-import', plugins_url( '/css/build/admin-export-import' . $suffix . '.css', POLYLANG_ROOT_FILE ), array( 'colors' ), POLYLANG_VERSION );
+		wp_enqueue_style( 'pll-admin-translations-dashboard', plugins_url( '/css/build/translations-dashboard' . $suffix . '.css', POLYLANG_ROOT_FILE ), array( 'colors' ), POLYLANG_VERSION );
 	}
 }

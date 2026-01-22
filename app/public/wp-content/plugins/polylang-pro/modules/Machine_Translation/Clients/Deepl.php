@@ -91,7 +91,7 @@ class Deepl implements Client_Interface {
 	}
 
 	/**
-	 * Splits an array of strings into several batches managable by DeepL API.
+	 * Splits an array of strings into several batches manageable by DeepL API.
 	 *
 	 * @since 3.6
 	 *
@@ -113,7 +113,7 @@ class Deepl implements Client_Interface {
 			/*
 			* A DeepL translation request body must not exceed 128 * 1024 bytes according to the documentation.
 			* {@see https://www.deepl.com/docs-api/translate-text}. We decrease this limit to 120 * 1024 bytes
-			* to accound for extra bytes added by the request params (100 bytes) + the JSON encoding of the array.
+			* to account for extra bytes added by the request params (100 bytes) + the JSON encoding of the array.
 			*/
 			if ( $count > 50 || $size > 120 * \KB_IN_BYTES ) {
 				$chunks[] = $chunk;
@@ -358,6 +358,11 @@ class Deepl implements Client_Interface {
 			),
 			(array) json_decode( $response['body'], true )
 		);
+
+		if ( $usage['character_limit'] >= pow( 10, 12 ) ) {
+			// Usage limit for the "unlimited" plan returns 10^12.
+			$usage['character_limit'] = 0;
+		}
 
 		return array(
 			'character_count' => max( 0, (int) $usage['character_count'] ),

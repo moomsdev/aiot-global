@@ -230,7 +230,7 @@ class PLL_REST_Post extends PLL_REST_Translated_Object {
 	}
 
 	/**
-	 * Check if the request is a REST API post type request for saving
+	 * Check if the request is a REST API post type request for saving.
 	 *
 	 * @since 2.7.3
 	 * @since 3.4 $post_id parameter removed.
@@ -253,8 +253,9 @@ class PLL_REST_Post extends PLL_REST_Translated_Object {
 				)
 			)
 		);
+
 		// Pattern to verify the request route.
-		$post_type_pattern = '#(' . implode( '|', array_values( $post_type_rest_bases ) ) . ')/' . $request->get_param( 'id' ) . '#';
+		$post_type_pattern = '#(' . implode( '|', array_values( $post_type_rest_bases ) ) . ')/(?P<id>[\d]+)#';
 		return preg_match( "$post_type_pattern", $request->get_route() ) && 'PUT' === $request->get_method();
 	}
 
@@ -287,7 +288,7 @@ class PLL_REST_Post extends PLL_REST_Translated_Object {
 			 *
 			 * @since 2.6
 			 *
-			 * @param array        $row      Datas in a translations table row
+			 * @param array        $row      Data in a translations table row
 			 * @param int          $id       Source post id.
 			 * @param PLL_Language $language Translation language
 			 */
@@ -302,7 +303,7 @@ class PLL_REST_Post extends PLL_REST_Translated_Object {
 	 *
 	 * @since 3.2
 	 *
-	 * @param int          $id       The id of the existing post to get datas for the translations table element.
+	 * @param int          $id       The id of the existing post to get data for the translations table element.
 	 * @param int          $tr_id    The id of the translated post for the given language if exists.
 	 * @param PLL_Language $language The given language object.
 	 * @return array The translation data of the given language.

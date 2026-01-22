@@ -3,6 +3,8 @@
  * @package Polylang-Pro
  */
 
+use WP_Syntex\Polylang\Model\Languages;
+
 /**
  * Allows to load a fallback translation file if a translation doesn't exist in the current locale.
  *
@@ -66,6 +68,7 @@ class PLL_Locale_Fallback {
 			$new_fallbacks = array();
 		} else {
 			$new_fallbacks = array_unique( array_map( 'trim', explode( ',', $args['fallback'] ) ) );
+			$new_fallbacks = array_diff( $new_fallbacks, array( $args['locale'] ) ); // Prevents including the main locale in the fallbacks.
 		}
 
 		$add_data['fallbacks'] = array();
@@ -73,7 +76,7 @@ class PLL_Locale_Fallback {
 		foreach ( $new_fallbacks as $fallback ) {
 			// Keep only valid locales.
 			// @TODO Display an error message.
-			if ( ! preg_match( '#^[a-z]{2,3}(?:_[A-Z]{2})?(?:_[a-z0-9]+)?$#', $fallback ) ) {
+			if ( ! preg_match( '#' . Languages::LOCALE_PATTERN . '#', $fallback ) ) {
 				continue;
 			}
 
@@ -173,22 +176,28 @@ class PLL_Locale_Fallback {
 		/** @var WP_Textdomain_Registry */
 		global $wp_textdomain_registry;
 
-		if ( ! empty( $path ) ) {
-			return $path;
-		}
+		static $once = array();
+
+		$once[ "$domain|$locale" ] = true;
 
 		$language = $this->model->get_language( $locale );
 		if ( empty( $language ) || empty( $language->fallbacks ) ) {
-			return false;
+			return $path;
 		}
 
 		foreach ( $language->fallbacks as $fallback ) {
+			if ( ! empty( $once[ "$domain|$fallback" ] ) ) { // Prevent an infinite loop if we already attempted to load this translation.
+				continue;
+			}
+
 			$path = $wp_textdomain_registry->get( $domain, $fallback );
 
 			if ( ! empty( $path ) ) {
 				return $path;
 			}
 		}
+
+		unset( $once[ "$domain|$locale" ] );
 
 		return $path;
 	}
