@@ -12,6 +12,24 @@ body.wp-admin {
   font-size: 13px !important;
 }
 
+//img theme preview
+.theme-overlay .screenshot {
+  box-shadow: none;
+
+  &::after {
+    content: none;
+  }
+
+  img {
+    position: relative;
+  }
+}
+
+.subsubsub {
+  position: relative;
+  z-index: 9999;
+}
+
 .featured_image.column-featured_image {
   a:not(.remove-thumbnail) {
     display: block !important;

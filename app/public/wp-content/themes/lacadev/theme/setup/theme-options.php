@@ -31,6 +31,7 @@ $optionsPage = Container::make('theme_options', __('Laca Theme', 'laca'))
 		Field::make('image', 'hinh_anh_mac_dinh' . currentLanguage(), __('Default image | Hình ảnh mặc định', 'laca'))
 			->set_width(33.33),
 	])
+
 	// Contact
 	->add_tab(__('Contact | Liên hệ', 'laca'), [
 		Field::make('html', 'info', __('', 'laca'))
@@ -68,6 +69,7 @@ $optionsPage = Container::make('theme_options', __('Laca Theme', 'laca'))
 			->set_width(33.33)
 			->set_attribute('placeholder', 'twitter'),
 	])
+
 	// Footer
 	->add_tab(__('Footer', 'laca'), [
 		Field::make('text', 'contact_label' . currentLanguage(), __('', 'laca'))
@@ -79,6 +81,7 @@ $optionsPage = Container::make('theme_options', __('Laca Theme', 'laca'))
 		Field::make('text', 'copyright' . currentLanguage(), __('', 'laca'))
 			->set_attribute('placeholder', 'Copyright | Bản quyền'),
 	])
+
 	// Scripts
 	->add_tab(__('Scripts', 'laca'), [
 		Field::make('header_scripts', 'crb_header_script', __('Header Script', 'laca')),

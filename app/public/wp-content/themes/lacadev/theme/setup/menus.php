@@ -17,7 +17,7 @@ use Carbon_Fields\Field;
 
 register_nav_menus(
 [
-		'main-menu' => __( 'Main Menu', 'laca' ),
+		'main-menu' => __( 'Header Menu', 'laca' ),
     'footer-menu' => __( 'Footer Menu', 'laca' ),
     'mobile-menu' => __( 'Mobile Menu', 'laca' ),
 	]
